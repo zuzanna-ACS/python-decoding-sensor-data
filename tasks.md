@@ -10,7 +10,12 @@
     - [M1: Task 4: Read Data Files](#m1-task-4-read-data-files)
     - [M1: Task 5: Load Data Records](#m1-task-5-load-data-records)
     - [M1: Task 6: Get Sensor Data with sensor_app](#m1-task-6-get-sensor-data-with-sensorapp)
-  - [Module 2: Create a Class HomeData](#module-2-create-a-class-homedata)
+  - [Module 2: The HomeData Class](#module-2-the-homedata-class)
+    - [Local Verification Instructions](#local-verification-instructions-1)
+    - [M2: Task 1: Import load_sensor_data](#m2-task-1-import-loadsensordata)
+    - [M2: Task 2: Create a Class](#m2-task-2-create-a-class)
+    - [M2: Task 3:](#m2-task-3)
+    - [M2: Task 4:](#m2-task-4)
   - [Module 3: Analyze Temperature Data](#module-3-analyze-temperature-data)
   - [Module 4: Analyze Humidity Data](#module-4-analyze-humidity-data)
   - [Module 5: Analyze Air Quality Data](#module-5-analyze-air-quality-data)
@@ -35,7 +40,7 @@ To test this module locally:
 
 [//]:# (@pytest.mark.test_load_data_import_module1)
 
-The dataset for this project is stored in several CSV files found in the `dataset` folder. It represents the data collected from a device with multiple sensors. The records include measurements of temperature, humidity, energy consumption, and particle count in the air over a given area. The data is collected over a period of 24 hours.  
+The dataset for this project is stored in several CSV files found in the `dataset` folder. It represents the data from a device with multiple sensors. The data was collected at random times over a period of days. The records include measurements of temperature, humidity, energy consumption, and particle count in the air over a given area. The data is collected over a period of 24 hours.  
 
 To start, open the file called `load_data.py` in the `sensor` folder.
 
@@ -112,7 +117,34 @@ To preview your app, open a terminal at the root of the project and run the foll
 python sensor/sensor_app.py
 ```
 
-## Module 2: Create a Class HomeData
+## Module 2: The HomeData Class
+
+### Local Verification Instructions
+
+To test this module locally:
+
+- Open a terminal at the root of the project
+- Run the command `pytest -k module2`
+
+### M2: Task 1: Import load_sensor_data
+
+[//]:# (@pytest.mark.test_house_info_import_module2)
+
+In this module, you will create a `HomeData` class that will help us process the sensor data records.
+
+To start, open the file called `house_info.py` in the `sensor` folder. At the top of the file, import `load_sensor_data` from the `load_info` module.
+
+### M2: Task 2: Create a Class
+
+[//]:# (@pytest.mark.test_house_info_create_class_module2)
+
+Below the import you just wrote, create a class called `HomeData`. Next, create a `HomeData` class constructor that accepts two arguments `self` and `data`.
+
+In the constructor, assign the `data` input parameter to a class attribute with the same name. Hint: class attributes are prefixed with self.
+
+### M2: Task 3:
+
+### M2: Task 4:
 
 ## Module 3: Analyze Temperature Data
 

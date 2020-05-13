@@ -1,1 +1,1 @@
-# Module 3: Create an instance of sensor data
+from load_data import load_sensor_data
