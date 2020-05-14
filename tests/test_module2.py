@@ -30,7 +30,7 @@ def test_house_info_create_class_module2(parse):
     ), "Have you created a class called `HouseInfo` in the `house_info.py` file?"
 
     class_init = house_info.class_("HouseInfo").method("__init__")
-    assert class_init.exists(), "Are you defining a construcgtor called `__init__`?"
+    assert class_init.exists(), "Are you defining a constructor called `__init__`?"
     
     class_init_q = house_info.query("class HouseInfo(): ??")
     test_method = "__init__"
