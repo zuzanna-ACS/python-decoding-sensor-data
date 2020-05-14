@@ -1,11 +1,10 @@
-from house_info import HomeData
+# Module 4: Work with scientific notation data from Particle counter sensor
+from house_info import HouseInfo
 
-# Module 6: Work with scientific notation data from Particle counter sensor
 
-
-class ParticleData(HomeData):
+class ParticleData(HouseInfo):
     def get_data(self, field, room=0):
-        field_info = self.get_data_by_room(field, room)
+        field_info = self.get_data_by_area(field, room)
         data = []
         for rec in field_info:
             # Convert string of integers into floats

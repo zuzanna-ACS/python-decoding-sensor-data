@@ -1,14 +1,14 @@
-from house_info import HomeData
+# Module 5: Work with hex and binary data from light bulbs sensor to energy
+from house_info import HouseInfo
 
-# Module 7: Work with hex and binary data from light bulbs sensor to energy
 
 ENERGY_PER_BULB = 0.2        # in watts
 ENERGY_BITS = 0x0F0
 
 
-class EnergyData(HomeData):
+class EnergyData(HouseInfo):
     def get_data(self, field, room=0):
-        field_info = self.get_data_by_room(field, room)
+        field_info = self.get_data_by_area(field, room)
         data = []
         for rec in field_info:
             # Convert string hex to binary
