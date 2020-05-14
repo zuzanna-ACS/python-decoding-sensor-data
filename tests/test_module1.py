@@ -107,24 +107,6 @@ def test_load_data_sensor_files_module1(parse):
     ), "Are you creating a variable called `sensor_files` and assigning it glob.glob() and passing os.path.join()? Are you passing 3 values to os.path.join()?"
 
 
-# @pytest.mark.test_load_data_sensor_files_query_module1
-# def test_load_data_sensor_files_query_module1(parse):
-
-#     # def load_sensor_data():
-#     #   ....
-#     #   sensor_files = glob.glob(os.path.join(os.getcwd(), 'datasets', '*.csv'))
-
-#     load_data = parse("load_data")
-#     assert load_data.success, load_data.message
-
-#     sensor_files = load_data.query(
-#         "glob.glob(os.path.join(os.getcwd(), 'datasets', '*.csv'))")
-#     sensor_files_exists = sensor_files.exists()
-#     assert (
-#         sensor_files_exists
-#     ), "Are you including `glob.glob(os.path.join(os.getcwd(), 'datasets', '*.csv'))` in your code?"
-
-
 @pytest.mark.test_load_data_read_files_module1
 def test_load_data_read_files_module1(parse):
 
@@ -225,11 +207,6 @@ def test_load_data_load_recs_module1(parse):
         load_sensor_data.exists()
     ), "Are you defining a function called `load_sensor_data` with the correct arguments?"
 
-    # print(json.dumps(load_sensor_data.for_().n, indent=2))  # TODO Remove
-    # print(json.dumps(load_sensor_data.assign_().n, indent=2))
-    # print(json.dumps(load_sensor_data.returns_call().n, indent=2))
-    # print(json.dumps(load_sensor_data.assigns().n, indent=2))
-    # assert False
 
     first_for_exists = (
         load_sensor_data.for_()
