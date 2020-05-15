@@ -1,6 +1,6 @@
-# Module 1 - The Sensor Class
+# Decoding Data App
 
-- [Module 1 - The Sensor Class](#module-1---the-sensor-class)
+- [Decoding Data App](#decoding-data-app)
   - [Status](#status)
   - [Module 1: Load Sensor Data From Files](#module-1-load-sensor-data-from-files)
     - [Local verification instructions](#local-verification-instructions)
@@ -12,14 +12,16 @@
     - [M1: Task 6: Get Sensor Data with sensor_app](#m1-task-6-get-sensor-data-with-sensorapp)
   - [Module 2: The HomeData Class](#module-2-the-homedata-class)
     - [Local Verification Instructions](#local-verification-instructions-1)
-    - [M2: Task 1: Import load_sensor_data](#m2-task-1-import-loadsensordata)
-    - [M2: Task 2: Create a Class](#m2-task-2-create-a-class)
-    - [M2: Task 3:](#m2-task-3)
-    - [M2: Task 4:](#m2-task-4)
-  - [Module 3: Analyze Temperature Data](#module-3-analyze-temperature-data)
-  - [Module 4: Analyze Humidity Data](#module-4-analyze-humidity-data)
-  - [Module 5: Analyze Air Quality Data](#module-5-analyze-air-quality-data)
-  - [Module 6: Analyze Energy Consumption Data](#module-6-analyze-energy-consumption-data)
+    - [M2: Task 1: Create a Class](#m2-task-1-create-a-class)
+    - [M2: Task 2: Create Method to Select Data by Area](#m2-task-2-create-method-to-select-data-by-area)
+    - [M2: Task 3: Filter Data Records by Area](#m2-task-3-filter-data-records-by-area)
+    - [M2: Task 4: Create Method to Select Data by Date](#m2-task-4-create-method-to-select-data-by-date)
+    - [M2: Task 5: Filter Data Records by Date](#m2-task-5-filter-data-records-by-date)
+    - [M2: Task 6: Get HouseInfo Data by Area with sensor_app](#m2-task-6-get-houseinfo-data-by-area-with-sensorapp)
+    - [M2: Task 7: Get HouseInfo Data by Date with sensor_app](#m2-task-7-get-houseinfo-data-by-date-with-sensorapp)
+  - [Module 3: Analyze Temperature and Humidity Data](#module-3-analyze-temperature-and-humidity-data)
+  - [Module 4: Analyze Air Quality Data](#module-4-analyze-air-quality-data)
+  - [Module 5: Analyze Energy Consumption Data](#module-5-analyze-energy-consumption-data)
 
 ## Status
 
@@ -101,15 +103,18 @@ Finally, your function should return `sensor_data` (outside of all `for` loops, 
 
 Let's set up the command line interface (CLI). Open the `sensor_app.py` file in the `sensor` directory of the project.
 
-At the top,  from the `load_data` module, `import` the `load_sensor_data` function.
+At the top of the file, from the `load_data` module, `import` the `load_sensor_data` function.
 
-Define variable called `data` and set it equal to `load_sensor_data()`.
+Then, below the two initial lines of code provided in the file
 
-Print the length of the `data` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form  `str.format()`. Remember, each data file contains 1000 records. So your output should look like this:
-
-```bash
-Loaded records: [2000]
+```python
+data = 0
+print("Sensor Data App")
 ```
+
+set the `data` variable equal to `load_sensor_data()`.
+
+Print the length of the `data` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form  `str.format()`. Remember, each data file contains 1000 records. So your output should look similar to this:
 
 To preview your app, open a terminal at the root of the project and run the following command:
 
@@ -117,7 +122,22 @@ To preview your app, open a terminal at the root of the project and run the foll
 python sensor/sensor_app.py
 ```
 
+Sample output:
+
+<!-- TODO: Update information in content tools -->
+```bash
+Sensor Data App
+Loaded records: 2000
+```
+
+FYI: the app will not validate your `print()` statements.
+
+---
+---
+
 ## Module 2: The HomeData Class
+
+---
 
 ### Local Verification Instructions
 
@@ -126,30 +146,163 @@ To test this module locally:
 - Open a terminal at the root of the project
 - Run the command `pytest -k module2`
 
-### M2: Task 1: Import load_sensor_data
+---
 
-[//]:# (@pytest.mark.test_house_info_import_module2)
+### M2: Task 1: Create a Class
 
-In this module, you will create a `HomeData` class that will help us process the sensor data records.
+<!-- @pytest.mark.test_house_info_create_class_module2 -->
 
-To start, open the file called `house_info.py` in the `sensor` folder. At the top of the file, import `load_sensor_data` from the `load_info` module.
+In this module, you will create a `HomeInfo` class that will help us process the sensor data records. This class will later serve as base class for other classes.
 
-### M2: Task 2: Create a Class
+To start, open the file called `house_info.py` in the `sensor` folder.
 
-[//]:# (@pytest.mark.test_house_info_create_class_module2)
+Create a class called `HomeInfo`. Next, create a `HomeInfo` class constructor with two parameters, `self` and `data`.
 
-Below the import you just wrote, create a class called `HomeData`. Next, create a `HomeData` class constructor that accepts two arguments `self` and `data`.
+In the body of the constructor, assign the `data` input parameter to a class attribute with the same name. Hint: class attributes are prefixed with `self`.
 
-In the constructor, assign the `data` input parameter to a class attribute with the same name. Hint: class attributes are prefixed with self.
+---
 
-### M2: Task 3:
+### M2: Task 2: Create Method to Select Data by Area
 
-### M2: Task 4:
+<!-- @pytest.mark.test_house_info_get_data_by_area_module2 -->
 
-## Module 3: Analyze Temperature Data
+Still in the `HouseInfo` class, create a method called `get_data_by_area()` with three parameters, `self`, `field`, and `rec_area`. The `rec_area` parameter should have a default value of `0`, which mean all records. The purpose of this method is to filter data by `rec_area` key and `field` value.
 
-## Module 4: Analyze Humidity Data
+***Note: The valid `field` values are the column names of the data files in the `datasets` folder***.
 
-## Module 5: Analyze Air Quality Data
+In the body of the `get_data_by_area` method, create a variable called `field_data` and set it to an empty `list`.
 
-## Module 6: Analyze Energy Consumption Data
+---
+
+### M2: Task 3: Filter Data Records by Area
+
+<!-- @pytest.mark.test_house_info_get_data_by_area_loop_module2 -->
+
+On a new line in the `get_data_by_area` method, create a `for` loop to iterate over `self.data`. Use `record` as your iterator variable.
+
+Remember that `self.data` class variable is a `list` of dictionaries.
+
+Now, in the body of the `for` loop, create a conditional statement as follows:
+
+- If the method is called with two arguments
+  - select those records whose key = `area` that matches the `rec_area` input parameter
+  - append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
+- If the method is called with one argument
+  - select all records
+  - append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
+
+Finally, your method should return `field_data` (outside of the `for` loop, and the very end of the method).
+
+---
+
+### M2: Task 4: Create Method to Select Data by Date
+
+<!-- @pytest.mark.test_house_info_get_data_by_date_module2 -->
+
+Still in the `HouseInfo` class, create another method called `get_data_by_date()` with three parameters, `self`, `field`, and `rec_date`. The `rec_date` parameter should have a default value to today's day. You can accomplish this using the `date` module.
+
+At the top of the file, import `date` and `datetime` from the `datetime` module. See [date information](https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.date) and [datetime information](https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime)
+
+In the body of the `get_data_by_date` method, create a variable called `field_data` and set it to an empty `list`.
+
+---
+
+### M2: Task 5: Filter Data Records by Date
+
+<!-- @pytest.mark.test_house_info_get_data_by_date_loop_module2 -->
+
+On a new line in the `get_data_by_date` method, create a `for` loop to iterate over `self.data`. Use `record` as your iterator variable.
+
+Now, in the body of the `for` loop, create a conditional statement that selects those records whose key = `date` matches the `rec_date` input parameter.
+
+In order to compare `record['date']` field, which is a string, to a `rec_date` which is date object, a casting of the `rec_date` object is required. This could be achieve with the [strftime](https://docs.python.org/3/library/datetime.html?highlight=strftime#datetime.date.strftime) method.
+
+The `strftime()` should take date format `"%m/%d/%y"`, which is the format of your data.
+
+If the records match `rec_date`, append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
+
+Finally, your method should return `field_data` (outside of the `for` loop, and the very end of the method).
+
+---
+
+### M2: Task 6: Get HouseInfo Data by Area with sensor_app
+
+<!-- @pytest.mark.test_sensor_app_house_info_by_area_module2 -->
+
+Open the `sensor_app.py` file in the `sensor` directory of the project, and add the following code:
+
+At the top of the file, from the `house_info` module, `import` the `HouseInfo`.
+
+At the bottom of the file,  create an instance of the `HouseInfo` class and call it `house_info`. The `HouseInfo` should take the `rec_data` list as the argument.
+
+Next, create a variable called `recs` and set it to the return value of `get_data_by_area()` method of the `house_info` object. The `get_data_by_area()` method should take `"id"` as the first argument, and `rec_area=1` as the second argument.
+
+To test it, print the length of the `recs` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form. 
+
+To preview your app, open a terminal at the root of the project and run the following command:
+
+```bash
+python sensor/sensor_app.py
+```
+
+Sample output including previous tasks:
+
+```bash
+Sensor Data App
+Loaded records: 2000
+House sensor records for area 1 = 1000
+```
+
+FYI: the app will not validate your `print()` statements, so you may test other scenarios to filter other data.
+
+---
+
+### M2: Task 7: Get HouseInfo Data by Date with sensor_app
+
+<!-- @pytest.mark.test_sensor_app_house_info_by_date_module2 -->
+
+Still in the `sensor_app.py` file in the `sensor` directory of the project, and add the following code:
+
+At the top of the file, from the `datetime` module, `import` the `date` and `datetime`.
+
+At the bottom of the file, create a variable called `temp_date` and set it to the call of `datetime.strptime()` which takes `"5/9/20"` as the first argument, and "`%m/%d/%y"` as the second argument.
+
+Next, set the `recs` variable to the return value of `get_data_by_date()` method of the `house_info` object. The `get_data_by_date()` method should take `"id"` as the first argument, and `rec_date=temp_date` as the second argument.
+
+To test it, print the length of the `recs` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form.
+
+To preview your app, open a terminal at the root of the project and run the following command:
+
+```bash
+python sensor/sensor_app.py
+```
+
+Sample output including previous tasks:
+
+```bash
+Sensor Data App
+Loaded records: 2000
+House sensor records for area 1 = 1000
+House sensor records for 2020-05-09 = 20
+```
+
+FYI: the app will not validate your `print()` statements, so you may test other scenarios to filter other data.
+
+---
+---
+
+## Module 3: Analyze Temperature and Humidity Data
+
+---
+---
+
+## Module 4: Analyze Air Quality Data
+
+---
+---
+
+## Module 5: Analyze Energy Consumption Data
+
+---
+---
+
