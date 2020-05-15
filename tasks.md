@@ -166,7 +166,7 @@ In the body of the constructor, assign the `data` input parameter to a class att
 
 <!-- @pytest.mark.test_house_info_get_data_by_area_module2 -->
 
-Still in the `HouseInfo` class, create a method called `get_data_by_area()` with three parameters, `self`, `field`, and `rec_area`. The `rec_area` parameter should have a default value of `0`, which mean all records. The purpose of this method is to filter data by `rec_area` key and `field` value.
+Still in the `HouseInfo` class, create a method called `get_data_by_area()` with three parameters, `self`, `field`, and `rec_area`. The `rec_area` parameter should have a default value of `0`, which translates to all records. The purpose of this method is to filter data by `rec_area` key and `field` value.
 
 ***Note: The valid `field` values are the column names of the data files in the `datasets` folder***.
 
@@ -182,14 +182,14 @@ On a new line in the `get_data_by_area` method, create a `for` loop to iterate o
 
 Remember that `self.data` class variable is a `list` of dictionaries.
 
-Now, in the body of the `for` loop, create a conditional statement as follows:
+Now, in the body of the `for` loop, create a control structure with the following rules:
 
 - If the method is called with two arguments
-  - select those records whose key = `area` that matches the `rec_area` input parameter
-  - append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
-- If the method is called with one argument
+  - select the records (key = area) that matches the `rec_area` input parameter
+  - append to the `field_data` list the value of the record which `key` equals the `field` input parameter..
+- If the method is called with one argument, the default `rec_data` values is used. In this case `0` means all records.
   - select all records
-  - append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
+  - append to the `field_data` list the value of the record which `key` equals the `field` input parameter.
 
 Finally, your method should return `field_data` (outside of the `for` loop, and the very end of the method).
 
@@ -213,13 +213,12 @@ In the body of the `get_data_by_date` method, create a variable called `field_da
 
 On a new line in the `get_data_by_date` method, create a `for` loop to iterate over `self.data`. Use `record` as your iterator variable.
 
-Now, in the body of the `for` loop, create a conditional statement that selects those records whose key = `date` matches the `rec_date` input parameter.
+Now, in the body of the `for` loop, create an:wa
+ `if` statement that selects those records whose `date` key matches the `rec_date` input parameter.
 
-In order to compare `record['date']` field, which is a string, to a `rec_date` which is date object, a casting of the `rec_date` object is required. This could be achieve with the [strftime](https://docs.python.org/3/library/datetime.html?highlight=strftime#datetime.date.strftime) method.
+In order to compare `record['date']` field, which is a string, to a `rec_date` which is date object, a casting of the `rec_date` object is required. This could be achieve with the [strftime](https://docs.python.org/3/library/datetime.html?highlight=strftime#datetime.date.strftime) method. The `strftime()` should take date format `"%m/%d/%y"`, which is the format of your data.
 
-The `strftime()` should take date format `"%m/%d/%y"`, which is the format of your data.
-
-If the records match `rec_date`, append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
+Append the value of the record which `key` equals the `field` input parameter to the `field_data` list.
 
 Finally, your method should return `field_data` (outside of the `for` loop, and the very end of the method).
 
@@ -233,7 +232,7 @@ Open the `sensor_app.py` file in the `sensor` directory of the project, and add 
 
 At the top of the file, from the `house_info` module, `import` the `HouseInfo`.
 
-At the bottom of the file,  create an instance of the `HouseInfo` class and call it `house_info`. The `HouseInfo` should take the `rec_data` list as the argument.
+At the bottom of the file,  create an instance of the `HouseInfo` class and call it `house_info`. The `HouseInfo` should take the `data` list as the argument.
 
 Next, create a variable called `recs` and set it to the return value of `get_data_by_area()` method of the `house_info` object. The `get_data_by_area()` method should take `"id"` as the first argument, and `rec_area=1` as the second argument.
 
@@ -261,13 +260,13 @@ FYI: the app will not validate your `print()` statements, so you may test other 
 
 <!-- @pytest.mark.test_sensor_app_house_info_by_date_module2 -->
 
-Still in the `sensor_app.py` file in the `sensor` directory of the project, and add the following code:
+Still in the `sensor_app` file, add the following code:
 
 At the top of the file, from the `datetime` module, `import` the `date` and `datetime`.
 
 At the bottom of the file, create a variable called `temp_date` and set it to the call of `datetime.strptime()` which takes `"5/9/20"` as the first argument, and "`%m/%d/%y"` as the second argument.
 
-Next, set the `recs` variable to the return value of `get_data_by_date()` method of the `house_info` object. The `get_data_by_date()` method should take `"id"` as the first argument, and `rec_date=temp_date` as the second argument.
+Next, set the `recs` variable to the return value of `get_data_by_date()` method of the `house_info` object. The method takes `"id"` as the first argument, and `rec_date=temp_date` as the second argument.
 
 To test it, print the length of the `recs` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form.
 
