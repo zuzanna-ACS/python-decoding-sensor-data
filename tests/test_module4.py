@@ -2,11 +2,11 @@ import pytest
 from tests.template import debug_test_case, debug_test_case_class
 
 
-@pytest.mark.test_temperature_import_module3
-def test_temperature_import_module3(parse):
+@pytest.mark.test_humidity_import_module4
+def test_humidity_import_module4(parse):
     # from house_info import HouseInfo
 
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     
     my_file = parse(test_file)
     assert my_file.success, my_file.message
@@ -16,15 +16,15 @@ def test_temperature_import_module3(parse):
     assert my_file_import, "Are you importing `HouseInfo` from `house_info` in `{}` file".format(test_file)
 
 
-@pytest.mark.test_temperature_create_class_module3
-def test_temperature_create_class_module3(parse):
-    # class TemperatureData(HouseInfo):
+@pytest.mark.test_humidity_create_class_module4
+def test_humidity_create_class_module4(parse):
+    # class HumidityData(HouseInfo):
     #    def _convert_data(self, data):
     #         data = []
 
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     parent_class = "HouseInfo"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     test_method = "_convert_data"
 
     my_file = parse(test_file)
@@ -41,7 +41,7 @@ def test_temperature_create_class_module3(parse):
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    # debug_test_case(my_method) 
+    debug_test_case(my_method) # TODO Remove later
     
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -82,16 +82,16 @@ def test_temperature_create_class_module3(parse):
     ), "Are you creating a variable called `recs` set equal to an empty list?"
     
 
-@pytest.mark.test_temperature_convert_loop_module3
-def test_temperature_convert_loop_module3(parse):
+@pytest.mark.test_humidity_convert_loop_module4
+def test_humidity_convert_loop_module4(parse):
     # for rec in data:
     #     # Convert string of integers into actual integers based 10
     #     recs.append(int(rec, 10))
     # return recs
 
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     parent_class = "HouseInfo"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     test_method = "_convert_data"
    
     my_file = parse(test_file)
@@ -108,7 +108,7 @@ def test_temperature_convert_loop_module3(parse):
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    # debug_test_case(my_method) 
+    debug_test_case(my_method) # TODO Remove later
 
     test_code = (
         my_method.for_().match(
@@ -135,13 +135,15 @@ def test_temperature_convert_loop_module3(parse):
                 "0_value_func_value_type": "Name",
                 "0_value_func_value_id": "recs",
                 "0_value_func_attr": "append",
-                "0_value_args_0_type": "Call",
-                "0_value_args_0_func_type": "Name",
-                "0_value_args_0_func_id": "int",
-                "0_value_args_0_args_0_type": "Name",
-                "0_value_args_0_args_0_id": "rec",
-                "0_value_args_0_args_1_type": "Constant",
-                "0_value_args_0_args_1_value": 10
+                "0_value_args_0_type": "BinOp",
+                "0_value_args_0_left_type": "Call",
+                "0_value_args_0_left_func_type": "Name",
+                "0_value_args_0_left_func_id": "float",
+                "0_value_args_0_left_args_0_type": "Name",
+                "0_value_args_0_left_args_0_id": "rec",
+                "0_value_args_0_op_type": "Mult",
+                "0_value_args_0_right_type": "Constant",
+                "0_value_args_0_right_value": 100
             }
         )
         .exists()
@@ -166,14 +168,14 @@ def test_temperature_convert_loop_module3(parse):
     ), """Are you returning `recs` list from the `{}` method?""".format(test_method)
 
 
-@pytest.mark.test_temperature_by_area_method_module3
-def test_temperature_by_area_method_module3(parse):
+@pytest.mark.test_humidity_by_area_method_module4
+def test_humidity_by_area_method_module4(parse):
     # def get_data_by_area(self, rec_area=0):
-    #     data = super().get_data_by_area("temperature", rec_area)
+    #     data = super().get_data_by_area("humidity", rec_area)
     
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     parent_class = "HouseInfo"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     test_method = "get_data_by_area"
     
     my_file = parse(test_file)
@@ -185,14 +187,14 @@ def test_temperature_by_area_method_module3(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    # debug_test_case_class(my_class, test_method) 
+    debug_test_case_class(my_class, test_method) # TODO Remove later
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    # debug_test_case(my_method) 
+    debug_test_case(my_method) # TODO Remove later
 
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -232,7 +234,7 @@ def test_temperature_by_area_method_module3(parse):
                 "value_func_value_func_id": "super",
                 "value_func_attr": "get_data_by_area",
                 "value_args_0_type": "Constant",
-                "value_args_0_value": "temperature",
+                "value_args_0_value": "humidity",
                 "value_args_1_type": "Name",
                 "value_args_1_id": "rec_area"
             }
@@ -243,16 +245,16 @@ def test_temperature_by_area_method_module3(parse):
         test_code
     ), """Are you creating a variable called `recs` set equal to 
         the `{}` method from the `{}` parent class?
-        Are you passing "temperature" as the only argument to the method call?""".format(test_method, parent_class)
+        Are you passing "humidity" as the only argument to the method call?""".format(test_method, parent_class)
 
-@pytest.mark.test_temperature_by_area_method_return_module3
-def test_temperature_by_area_method_return_module3(parse):
+@pytest.mark.test_humidity_by_area_method_return_module4
+def test_humidity_by_area_method_return_module4(parse):
     # ...
     #     return self._convert_data(recs)
     
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     parent_class = "HouseInfo"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     test_method = "get_data_by_area"
     
     my_file = parse(test_file)
@@ -264,14 +266,14 @@ def test_temperature_by_area_method_return_module3(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    # debug_test_case_class(my_class, test_method) 
+    debug_test_case_class(my_class, test_method) # TODO Remove later
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    # debug_test_case(my_method) 
+    debug_test_case(my_method) # TODO Remove later
 
     test_code = (
         my_method.returns_call().match(
@@ -294,15 +296,15 @@ def test_temperature_by_area_method_return_module3(parse):
         Are you calling the `_convert_data` method?
         Passing `recs` as the only argument?""".format(test_method)
 
-@pytest.mark.test_temperature_by_date_method_module3
-def test_temperature_by_date_method_module3(parse):
+@pytest.mark.test_humidity_by_date_method_module4
+def test_humidity_by_date_method_module4(parse):
     # from datetime import date
     # def get_data_by_date(self, rec_date=date.today()):
-    #     recs = super().get_data_by_date("temperature", rec_date)
+    #     recs = super().get_data_by_date("humidity", rec_date)
     
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     parent_class = "HouseInfo"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     test_method = "get_data_by_date"
     
     my_file = parse(test_file)
@@ -318,14 +320,14 @@ def test_temperature_by_date_method_module3(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    # debug_test_case_class(my_class, test_method) 
+    debug_test_case_class(my_class, test_method) # TODO Remove later
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    # debug_test_case(my_method) 
+    debug_test_case(my_method) # TODO Remove later
 
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -368,7 +370,7 @@ def test_temperature_by_date_method_module3(parse):
                 "value_func_value_func_id": "super",
                 "value_func_attr": "get_data_by_date",
                 "value_args_0_type": "Constant",
-                "value_args_0_value": "temperature",
+                "value_args_0_value": "humidity",
                 "value_args_1_type": "Name",
                 "value_args_1_id": "rec_date"
             }
@@ -379,16 +381,16 @@ def test_temperature_by_date_method_module3(parse):
         test_code
     ), """Are you creating a variable called `recs` set equal to 
         the `{}` method from the `{}` parent class?
-        Are you passing "temperature" as the only argument to the method call?""".format(test_method, parent_class)
+        Are you passing "humidity" as the only argument to the method call?""".format(test_method, parent_class)
 
-@pytest.mark.test_temperature_by_date_method_return_module3
-def test_temperature_by_date_method_return_module3(parse):
+@pytest.mark.test_humidity_by_date_method_return_module4
+def test_humidity_by_date_method_return_module4(parse):
     # ...
     #     return self._convert_data(recs)
     
-    test_file = "temperature_info"
+    test_file = "humidity_info"
     parent_class = "HouseInfo"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     test_method = "get_data_by_date"
     
     my_file = parse(test_file)
@@ -400,14 +402,14 @@ def test_temperature_by_date_method_return_module3(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    # debug_test_case_class(my_class, test_method) 
+    debug_test_case_class(my_class, test_method) # TODO Remove later
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    # debug_test_case(my_method) 
+    debug_test_case(my_method) # TODO Remove later
 
     test_code = (
         my_method.returns_call().match(
@@ -431,40 +433,40 @@ def test_temperature_by_date_method_return_module3(parse):
         Passing `recs` as the only argument?""".format(test_method)
 
 
-@pytest.mark.test_sensor_app_temp_info_by_area_module3
-def test_sensor_app_temp_info_by_area_module3(parse):
-    # from temperature_info import TemperatureData
+@pytest.mark.test_sensor_app_temp_info_by_area_module4
+def test_sensor_app_temp_info_by_area_module4(parse):
+    # from humidity_info import HumidityData          # module 4
     # from statistics import mean
     # ...
-    # temperature_data = TemperatureData(data)
-    # recs = temperature_data.get_data_by_area(rec_area=1)
+    # humidity_data = HumidityData(data)
+    # recs = humidity_data.get_data_by_area(rec_area=1)
     # NOTE: print statements are not validated
-    # print("House Temperature sensor records for area 1 = {}".format(len(recs)))
+    # print("House Humidity sensor records for area 1 = {}".format(len(recs)))
     # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format( max(recs), min(recs), mean(recs)))
 
     test_file = "sensor_app"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     
     my_file = parse(test_file)
     assert my_file.success, my_file.message
 
     my_file_import = my_file.from_imports(
-        "temperature_info", "TemperatureData")
-    assert my_file_import, "Are you importing `TemperatureData` from `temperature_info` in `{}`".format(test_file)
+        "humidity_info", "HumidityData")
+    assert my_file_import, "Are you importing `HumidityData` from `humidity_info` in `{}`".format(test_file)
 
-    # debug_test_case(my_file)    
+    debug_test_case(my_file)    # TODO Remove
 
     test_code = (
         my_file.assign_().match(
             {
-                "6_type": "Assign",
-                "6_targets_0_type": "Name",
-                "6_targets_0_id": "temperature_data",
-                "6_value_type": "Call",
-                "6_value_func_type": "Name",
-                "6_value_func_id": "TemperatureData",
-                "6_value_args_0_type": "Name",
-                "6_value_args_0_id": "data",
+                "9_type": "Assign",
+                "9_targets_0_type": "Name",
+                "9_targets_0_id": "humidity_data",
+                "9_value_type": "Call",
+                "9_value_func_type": "Name",
+                "9_value_func_id": "HumidityData",
+                "9_value_args_0_type": "Name",
+                "9_value_args_0_id": "data",
             }
         )
         .exists()
@@ -478,25 +480,25 @@ def test_sensor_app_temp_info_by_area_module3(parse):
     test_code = (
         my_file.assign_().match(
             {
-                "7_type": "Assign",
-                "7_targets_0_type": "Name",
-                "7_targets_0_id": "recs",
-                "7_value_type": "Call",
-                "7_value_func_type": "Attribute",
-                "7_value_func_value_type": "Name",
-                "7_value_func_value_id": "temperature_data",
-                "7_value_func_attr": "get_data_by_area",
-                "7_value_keywords_0_type": "keyword",
-                "7_value_keywords_0_arg": "rec_area",
-                "7_value_keywords_0_value_type": "Constant",
-                "7_value_keywords_0_value_value": 1,
+                "10_type": "Assign",
+                "10_targets_0_type": "Name",
+                "10_targets_0_id": "recs",
+                "10_value_type": "Call",
+                "10_value_func_type": "Attribute",
+                "10_value_func_value_type": "Name",
+                "10_value_func_value_id": "humidity_data",
+                "10_value_func_attr": "get_data_by_area",
+                "10_value_keywords_0_type": "keyword",
+                "10_value_keywords_0_arg": "rec_area",
+                "10_value_keywords_0_value_type": "Constant",
+                "10_value_keywords_0_value_value": 1,
             }
         )
         .exists()
     )
     assert (
         test_code
-    ), """Are you setting `recs` to the method call `get_data_by_area` from the `temperature_data` object?
+    ), """Are you setting `recs` to the method call `get_data_by_area` from the `humidity_data` object?
         Are you passing `"rec_area=1"` as the only argument to the method?
         """
 
@@ -505,43 +507,43 @@ def test_sensor_app_temp_info_by_area_module3(parse):
     assert my_file_import, "Are you importing `mean` from `statistics` in `{}`".format(test_file)
 
 
-@pytest.mark.test_sensor_app_temp_info_by_date_module3
-def test_sensor_app_temp_info_by_date_module3(parse):
+@pytest.mark.test_sensor_app_temp_info_by_date_module4
+def test_sensor_app_temp_info_by_date_module4(parse):
     # ...
-    # recs = temperature_data.get_data_by_date(test_date)
+    # recs = humidity_data.get_data_by_date(test_date)
     # NOTE: print statements are not validated
-    # print("House Temperature sensor records for date: {} = {}".format(test_date.strftime("%m/%d/%y"), len(recs)))
-    # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format(max(recs), min(recs), mean(recs)))
+    # print("House Humidity sensor records for date: {} = {}".format(test_date.strftime("%m/%d/%y"), len(recs)))
+    # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} humiditys".format(max(recs), min(recs), mean(recs)))
 
     test_file = "sensor_app"
-    test_class = "TemperatureData"
+    test_class = "HumidityData"
     
     my_file = parse(test_file)
     assert my_file.success, my_file.message
 
-    # debug_test_case(my_file)    
-
+    debug_test_case(my_file)    # TODO Remove
+    
     test_code = (
         my_file.assign_().match(
             {
-                "8_type": "Assign",
-                "8_targets_0_type": "Name",
-                "8_targets_0_id": "recs",
-                "8_value_type": "Call",
-                "8_value_func_type": "Attribute",
-                "8_value_func_value_type": "Name",
-                "8_value_func_value_id": "temperature_data",
-                "8_value_func_attr": "get_data_by_date",
-                "8_value_keywords_0_type": "keyword",
-                "8_value_keywords_0_arg": "rec_date",
-                "8_value_keywords_0_value_type": "Name",
-                "8_value_keywords_0_value_id": "test_date"
+                "11_type": "Assign",
+                "11_targets_0_type": "Name",
+                "11_targets_0_id": "recs",
+                "11_value_type": "Call",
+                "11_value_func_type": "Attribute",
+                "11_value_func_value_type": "Name",
+                "11_value_func_value_id": "humidity_data",
+                "11_value_func_attr": "get_data_by_date",
+                "11_value_keywords_0_type": "keyword",
+                "11_value_keywords_0_arg": "rec_date",
+                "11_value_keywords_0_value_type": "Name",
+                "11_value_keywords_0_value_id": "test_date"
             }
         )
         .exists()
     )
     assert (
         test_code
-    ), """Are you setting `recs` to the method call `get_data_by_date` from the `temperature_data` object?
+    ), """Are you setting `recs` to the method call `get_data_by_date` from the `humidity_data` object?
         Are you passing `rec_date=test_date` as the only argument to the method?
         """
