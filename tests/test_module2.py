@@ -463,9 +463,9 @@ def test_sensor_app_load_house_info_by_area_module2(parse):
 def test_sensor_app_load_house_info_by_date_module2(parse):
     # from datetime import date, datetime
     # ...
-    # rec_date = datetime.strptime("5/9/2020", "%m/%d/%Y")
-    # recs = house_info.get_data_by_date("id", rec_date)
-    # print("House sensor records for {} = {}".format(rec_date.date(), len(recs)))
+    # test_date = datetime.strptime("5/9/20", "%m/%d/%y")
+    # recs = house_info.get_data_by_date("id", rec_date = test_date)
+    # print("House sensor records for {} = {}".format(test_date.date(), len(recs))) # (NOT TEST IT)
 
     sensor = parse("sensor_app")
     assert sensor.success, sensor.message
@@ -477,7 +477,7 @@ def test_sensor_app_load_house_info_by_date_module2(parse):
     date_import = sensor.from_imports(
         "datetime", "date")
     assert date_import, "Are you importing `date` from datetime?"
-    # print(json.dumps(sensor.assign_().n, indent=2))
+    print(json.dumps(sensor.assign_().n, indent=2))
     # assert False
 
     house_date = (
@@ -485,16 +485,16 @@ def test_sensor_app_load_house_info_by_date_module2(parse):
             {
                 "4_type": "Assign",
                 "4_targets_0_type": "Name",
-                "4_targets_0_id": "rec_date",
+                "4_targets_0_id": "test_date",
                 "4_value_type": "Call",
                 "4_value_func_type": "Attribute",
                 "4_value_func_value_type": "Name",
                 "4_value_func_value_id": "datetime",
                 "4_value_func_attr": "strptime",
                 "4_value_args_0_type": "Constant",
-                "4_value_args_0_value": "5/9/2020",
+                "4_value_args_0_value": "5/9/20",
                 "4_value_args_1_type": "Constant",
-                "4_value_args_1_value": "%m/%d/%Y",
+                "4_value_args_1_value": "%m/%d/%y",
             }
         )
         .exists()
@@ -502,7 +502,7 @@ def test_sensor_app_load_house_info_by_date_module2(parse):
     assert (
         house_date
     ),  """Are you creating an instance of the datetime class called `record_date` 
-            which takes "5/9/2020" and "%m/%d/%Y" as the two arguments?"""
+            which takes "5/9/20" and "%m/%d/%y" as the two arguments?"""
     
     house_temp = (
         sensor.assign_().match(
@@ -517,8 +517,11 @@ def test_sensor_app_load_house_info_by_date_module2(parse):
                 "5_value_func_attr": "get_data_by_date",
                 "5_value_args_0_type": "Constant",
                 "5_value_args_0_value": "id",
-                "5_value_args_1_type": "Name",
-                "5_value_args_1_id": "rec_date"
+                "5_value_keywords_0_type": "keyword",
+                "5_value_keywords_0_arg": "rec_date",
+                "5_value_keywords_0_value_type": "Name",
+                "5_value_keywords_0_value_id": "test_date"
+
             }
         )
         .exists()
@@ -527,4 +530,4 @@ def test_sensor_app_load_house_info_by_date_module2(parse):
         house_temp
     ), """Are you creating a variable `recs` and setting it to the return 
             value from `house_info.get_data_by_date()`?
-          Are you passing `area=1 or 2` as the second argument to the `get_data_by_area()` method?"""
+          Are you passing `rec_date=test_date` as the second argument to the `get_data_by_date()` method?"""
