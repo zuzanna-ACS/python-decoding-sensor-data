@@ -433,3 +433,119 @@ def test_temperature_by_date_method_return_module3(parse):
     ), """Are you returning a call from the {} method?
         Are you calling the `_convert_data` method?
         Passing `recs` as the only argument?""".format(test_method)
+
+
+@pytest.mark.test_sensor_app_temp_info_by_area_module3
+def test_sensor_app_temp_info_by_area_module3(parse):
+    # from temperature_info import TemperatureData
+    # from statistics import mean
+    # ...
+    # temperature_data = TemperatureData(data)
+    # recs = temperature_data.get_data_by_area(rec_area=1)
+    # NOTE: print statements are not validated
+    # print("House Temperature sensor records for area 1 = {}".format(len(recs)))
+    # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format( max(recs), min(recs), mean(recs)))
+
+    test_file = "sensor_app"
+    test_class = "TemperatureData"
+    
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+
+    my_file_import = my_file.from_imports(
+        "temperature_info", "TemperatureData")
+    assert my_file_import, "Are you importing `TemperatureData` from `temperature_info` in `{}`".format(test_file)
+
+    debug_test_case(my_file)    # TODO Remove
+
+    test_code = (
+        my_file.assign_().match(
+            {
+                "6_type": "Assign",
+                "6_targets_0_type": "Name",
+                "6_targets_0_id": "temperature_data",
+                "6_value_type": "Call",
+                "6_value_func_type": "Name",
+                "6_value_func_id": "TemperatureData",
+                "6_value_args_0_type": "Name",
+                "6_value_args_0_id": "data",
+            }
+        )
+        .exists()
+    )
+    assert (
+        test_code
+    ), """Are you creating an instance of the '{}' class with 
+        `data` list as the initialization argument for the constructor?
+        """.format(test_class)
+    
+    test_code = (
+        my_file.assign_().match(
+            {
+                "7_type": "Assign",
+                "7_targets_0_type": "Name",
+                "7_targets_0_id": "recs",
+                "7_value_type": "Call",
+                "7_value_func_type": "Attribute",
+                "7_value_func_value_type": "Name",
+                "7_value_func_value_id": "temperature_data",
+                "7_value_func_attr": "get_data_by_area",
+                "7_value_keywords_0_type": "keyword",
+                "7_value_keywords_0_arg": "rec_area",
+                "7_value_keywords_0_value_type": "Constant",
+                "7_value_keywords_0_value_value": 1,
+            }
+        )
+        .exists()
+    )
+    assert (
+        test_code
+    ), """Are you setting `recs` to the method call `get_data_by_area` from the `temperature_data` object?
+        Are you passing `rec_area=1` as the only argument to the method?
+        """
+
+    my_file_import = my_file.from_imports(
+        "statistics", "mean")
+    assert my_file_import, "Are you importing `mean` from `statistics` in `{}`".format(test_file)
+
+
+@pytest.mark.test_sensor_app_temp_info_by_date_module3
+def test_sensor_app_temp_info_by_date_module3(parse):
+    # ...
+    # recs = temperature_data.get_data_by_date(test_date)
+    # NOTE: print statements are not validated
+    # print("House Temperature sensor records for date: {} = {}".format(test_date.strftime("%m/%d/%y"), len(recs)))
+    # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format(max(recs), min(recs), mean(recs)))
+
+    test_file = "sensor_app"
+    test_class = "TemperatureData"
+    
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+
+    debug_test_case(my_file)    # TODO Remove
+
+    test_code = (
+        my_file.assign_().match(
+            {
+                "8_type": "Assign",
+                "8_targets_0_type": "Name",
+                "8_targets_0_id": "recs",
+                "8_value_type": "Call",
+                "8_value_func_type": "Attribute",
+                "8_value_func_value_type": "Name",
+                "8_value_func_value_id": "temperature_data",
+                "8_value_func_attr": "get_data_by_date",
+                "8_value_keywords_0_type": "keyword",
+                "8_value_keywords_0_arg": "rec_date",
+                "8_value_keywords_0_value_type": "Name",
+                "8_value_keywords_0_value_id": "test_date"
+            }
+        )
+        .exists()
+    )
+    assert (
+        test_code
+    ), """Are you setting `recs` to the method call `get_data_by_date` from the `temperature_data` object?
+        Are you passing `rec_date=test_date` as the only argument to the method?
+        """

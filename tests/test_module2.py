@@ -1,6 +1,6 @@
 import pytest
-import json
 
+from tests.template import debug_test_case, debug_test_case_class
 import sensor.load_data
 import sensor.house_info
 from datetime import date, datetime
@@ -259,8 +259,8 @@ def test_house_info_get_data_by_date_module2(parse):
         with the correct name and number of parameters?
         Are you setting the third parameter's default value to date.today()?"""
     
-    # print("1)", json.dumps(house_info_class.def_args_(test_method).n, indent=4))  # TODO Remove
-    print("2)", json.dumps(data_by_date.assign_().n, indent=4))  # TODO Remove
+    debug_test_case(data_by_date) # TODO Remove later
+
     # assert False
     data_list = (
         data_by_date.assign_().match(
@@ -297,7 +297,8 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     data_by_date = house_info.class_("HouseInfo").method(test_method)
     assert data_by_date.exists(), "Are you defining a method called `{}?".format(test_method)
 
-    # print(json.dumps(data_by_date.for_().n, indent=2)) # TODO
+    debug_test_case(data_by_date) # TODO Remove later
+    
     # assert False
     first_for = (
         data_by_date.for_().match(
@@ -390,18 +391,14 @@ def test_house_info_get_data_by_date_loop_module2(parse):
             and the second argument as `datetime` object with the format: "%m/%d/%Y"
         Check the logic inside your loop"""
     
-    # print("1)", json.dumps(house_info_class.def_args_(test_method).n, indent=4))  # TODO Remove
-    # print("2)", json.dumps(data_by_date.for_().n, indent=4))  # TODO Remove
-    # assert False
-
 
 @pytest.mark.test_sensor_app_house_info_by_area_module2
-def test_sensor_app_load_house_info_by_area_module2(parse):
+def test_sensor_app_house_info_by_area_module2(parse):
     # from house_info import HouseInfo
     # ...
     # house_info = HouseInfo(data)
     # recs = house_info.get_data_by_area("id", rec_area=1)
-    # print("House sensor records for area 1 = {}".format(len(recs)))
+    # print("House sensor records for area 1 = {}".format(len(recs))) # NOT TEST IT
 
     sensor = parse("sensor_app")
     assert sensor.success, sensor.message
@@ -460,7 +457,7 @@ def test_sensor_app_load_house_info_by_area_module2(parse):
 
 
 @pytest.mark.test_sensor_app_house_info_by_date_module2
-def test_sensor_app_load_house_info_by_date_module2(parse):
+def test_sensor_app_house_info_by_date_module2(parse):
     # from datetime import date, datetime
     # ...
     # test_date = datetime.strptime("5/9/20", "%m/%d/%y")
@@ -477,8 +474,6 @@ def test_sensor_app_load_house_info_by_date_module2(parse):
     date_import = sensor.from_imports(
         "datetime", "date")
     assert date_import, "Are you importing `date` from datetime?"
-    print(json.dumps(sensor.assign_().n, indent=2))
-    # assert False
 
     house_date = (
         sensor.assign_().match(

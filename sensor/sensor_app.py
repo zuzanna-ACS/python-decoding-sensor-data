@@ -2,7 +2,7 @@
 from load_data import load_sensor_data          # module 2
 from house_info import HouseInfo
 from datetime import date, datetime
-from temperature_info import TemperatureData
+from temperature_info import TemperatureData    # module 3
 from statistics import mean
 
 #######################################
@@ -34,8 +34,8 @@ print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format(
     max(recs), min(recs), mean(recs)))
 
 # test_date = datetime.strptime("5/9/20", "%m/%d/%y")
-recs = temperature_data.get_data_by_date(test_date)
+recs = temperature_data.get_data_by_date(rec_date=test_date)
 print("House Temperature sensor records for date: {} = {}".format(
-    test_date, len(recs)))
+    test_date.strftime("%m/%d/%y"), len(recs)))
 print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format(
     max(recs), min(recs), mean(recs)))
