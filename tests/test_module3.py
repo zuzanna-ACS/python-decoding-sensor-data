@@ -434,13 +434,12 @@ def test_temperature_by_date_method_return_module3(parse):
 @pytest.mark.test_sensor_app_temp_info_by_area_module3
 def test_sensor_app_temp_info_by_area_module3(parse):
     # from temperature_info import TemperatureData
-    # from statistics import mean
     # ...
     # temperature_data = TemperatureData(data)
     # recs = temperature_data.get_data_by_area(rec_area=1)
     # NOTE: print statements are not validated
     # print("House Temperature sensor records for area 1 = {}".format(len(recs)))
-    # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format( max(recs), min(recs), mean(recs)))
+    # print("\tMaximum: {0}, Minimum: {1}, and Averrage: {2} temperatures".format( max(recs), min(recs)))
 
     test_file = "sensor_app"
     test_class = "TemperatureData"
@@ -499,10 +498,6 @@ def test_sensor_app_temp_info_by_area_module3(parse):
     ), """Are you setting `recs` to the method call `get_data_by_area` from the `temperature_data` object?
         Are you passing `"rec_area=1"` as the only argument to the method?
         """
-
-    my_file_import = my_file.from_imports(
-        "statistics", "mean")
-    assert my_file_import, "Are you importing `mean` from `statistics` in `{}`".format(test_file)
 
 
 @pytest.mark.test_sensor_app_temp_info_by_date_module3
