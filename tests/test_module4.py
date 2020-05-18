@@ -436,7 +436,7 @@ def test_humidity_by_date_method_return_module4(parse):
 @pytest.mark.test_sensor_app_temp_info_by_area_module4
 def test_sensor_app_temp_info_by_area_module4(parse):
     # from humidity_info import HumidityData          # module 4
-    # from statistics import mean . # TODO add other statistics 
+    # from statistics import mean . 
     # ...
     # humidity_data = HumidityData(data)
     # recs = humidity_data.get_data_by_area(rec_area=1)

@@ -41,7 +41,7 @@ def test_particle_create_class_module5(parse):
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method) # TODO Remove later
+    # debug_test_case(my_method) 
     
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -108,7 +108,7 @@ def test_particle_convert_loop_module5(parse):
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method) # TODO Remove later
+    # debug_test_case(my_method) 
 
     test_code = (
         my_method.for_().match(
@@ -183,14 +183,14 @@ def test_particle_by_area_method_module5(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    debug_test_case_class(my_class, test_method) # TODO Remove later
+    # debug_test_case_class(my_class, test_method) 
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method) # TODO Remove later
+    # debug_test_case(my_method) 
 
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -262,14 +262,14 @@ def test_particle_by_area_method_return_module5(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    debug_test_case_class(my_class, test_method) # TODO Remove later
+    # debug_test_case_class(my_class, test_method) 
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method) # TODO Remove later
+    # debug_test_case(my_method) 
 
     test_code = (
         my_method.returns_call().match(
@@ -316,14 +316,14 @@ def test_particle_by_date_method_module5(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    debug_test_case_class(my_class, test_method) # TODO Remove later
+    # debug_test_case_class(my_class, test_method) 
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method) # TODO Remove later
+    # debug_test_case(my_method) 
 
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -398,14 +398,14 @@ def test_particle_by_date_method_return_module5(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheritings the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    debug_test_case_class(my_class, test_method) # TODO Remove later
+    # debug_test_case_class(my_class, test_method) 
     
     my_method = my_file.class_(test_class).method(test_method)
     assert (
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method) # TODO Remove later
+    # debug_test_case(my_method) 
 
     test_code = (
         my_method.returns_call().match(
@@ -449,7 +449,7 @@ def test_sensor_app_temp_info_by_area_module5(parse):
         "particle_count_info", "ParticleData")
     assert my_file_import, "Are you importing `ParticleData` from `particle_count_info` in `{}`".format(test_file)
 
-    debug_test_case(my_file)    # TODO Remove
+    # debug_test_case(my_file)    
 
     test_code = (
         my_file.assign_().match(
@@ -545,8 +545,8 @@ def test_sensor_app_temp_info_by_date_module5(parse):
     my_file = parse(test_file)
     assert my_file.success, my_file.message
 
-    debug_test_case(my_file)    # TODO Remove
-    
+    # debug_test_case(my_file)   
+    # 
     test_code = (
         my_file.assign_().match(
             {

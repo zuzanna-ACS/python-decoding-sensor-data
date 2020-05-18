@@ -5,7 +5,8 @@ from datetime import date, datetime
 from temperature_info import TemperatureData    # module 3
 from humidity_info import HumidityData          # module 4
 from statistics import mean
-from particle_count_info import ParticleData          # module 5
+from particle_count_info import ParticleData    # module 5      # module 5
+from energy_info import EnergyData              # module 6    
 
 #######################################
 # Do not remove these two lines
@@ -70,3 +71,16 @@ recs = particle_data.get_data_concentrations(data = particle_data.get_data_by_da
 print("\tGood Air Quality Recs: {}".format(recs["good"]))
 print("\tModerate Air Quality Recs: {}".format(recs["moderate"]))
 print("\tBad Air Quality Recs: {}".format(recs["bad"]))
+
+# Module 6
+energy_data = EnergyData(data)
+recs = energy_data.get_data_by_area(rec_area=1)
+print("House Energy sensor records for area 1 = {}".format(len(recs)))
+total_energy = energy_data.calculate_energy_usage(recs)
+print("\tEnergy Usage: {:2.2} Watts".format(total_energy))
+# test_date = datetime.strptime("5/9/20", "%m/%d/%y")
+recs = energy_data.get_data_by_date(rec_date=test_date)
+print("House Energy sensor records for date: {} = {}".format(
+    test_date.strftime("%m/%d/%y"), len(recs)))
+total_energy = energy_data.calculate_energy_usage(energy_data.get_data_by_date(rec_date=test_date))
+print("\tEnergy Usage: {:2.2} Watts".format(total_energy))
