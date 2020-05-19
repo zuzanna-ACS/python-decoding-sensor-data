@@ -148,9 +148,9 @@ def test_house_info_get_data_by_area_module2(parse):
 def test_house_info_get_data_by_area_loop_module2(parse):
     
     #     for record in self.data:
-            # if rec_area == int(record['area']):       # select area
+            # if rec_area == 0:
             #     field_data.append(record[field])
-            # elif rec_area == 0:
+            # elif rec_area == int(record['area']): 
             #     field_data.append(record[field])
     #     return field_data
 
@@ -491,8 +491,8 @@ def test_sensor_app_house_info_by_area_module2(parse):
     )
     assert (
         test_code
-    ), """Are you creating a variable `recs` and setting it to the call 
-            value from `house_info.get_data_by_area()`?
+    ), """Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
+          Are you passing `"id"` as the first argument to the method?
           Are you passing `rec_area=1` as the second argument to the method?"""
 
 
@@ -567,6 +567,6 @@ def test_sensor_app_house_info_by_date_module2(parse):
     )
     assert (
         test_code
-    ), """Are you creating a variable `recs` and setting it to the return 
-            value from `house_info.get_data_by_date()`?
-          Are you passing `rec_date=test_date` as the second argument to the `get_data_by_date()` method?"""
+    ), """Are you creating a variable `recs` and setting it to `house_info.get_data_by_date()`?
+          Are you passing `"id"` as the first argument to the method?
+          Are you passing `rec_date=test_date` as the second argument to the method?"""

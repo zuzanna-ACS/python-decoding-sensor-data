@@ -5,9 +5,8 @@ class TemperatureData(HouseInfo):
     def _convert_data(self, data):
         recs = []
         for rec in data:
-            # Convert string of integers into actual integers based 10
+            # Convert string of integers into integers based 10
             recs.append(int(rec, 10))
-        
         return recs
     
     def get_data_by_area(self, rec_area=0):
