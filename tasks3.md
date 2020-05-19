@@ -5,11 +5,11 @@
   - [Module 3: Analyze Temperature](#module-3-analyze-temperature)
     - [M3: Local Verification Instructions](#m3-local-verification-instructions)
     - [M3: Task 1: Import HouseInfo](#m3-task-1-import-houseinfo)
-    - [M3: Task 2: Create a Class](#m3-task-2-create-a-class)
-    - [M3: Task 3: Convert Data](#m3-task-3-convert-data)
-    - [M3: Task 4: Filter Data Records by Area](#m3-task-4-filter-data-records-by-area)
+    - [M3: Task 2: Create TempeartureData Class](#m3-task-2-create-tempearturedata-class)
+    - [M3: Task 3: Convert Temperature Data](#m3-task-3-convert-temperature-data)
+    - [M3: Task 4: Filter Temperature Data Records by Area](#m3-task-4-filter-temperature-data-records-by-area)
     - [M3: Task 5: Return Transformed Temperature Data Records by Area](#m3-task-5-return-transformed-temperature-data-records-by-area)
-    - [M3: Task 6: Filter Data Records by Date](#m3-task-6-filter-data-records-by-date)
+    - [M3: Task 6: Filter Temperature Data Records by Date](#m3-task-6-filter-temperature-data-records-by-date)
     - [M3: Task 7: Return Transformed Temperature Data Records by Date](#m3-task-7-return-transformed-temperature-data-records-by-date)
     - [M3: Task 8: Get Temperature Data by Area with sensor_app](#m3-task-8-get-temperature-data-by-area-with-sensorapp)
     - [M3: Task 8: Get Temperature Data by Date with sensor_app](#m3-task-8-get-temperature-data-by-date-with-sensorapp)
@@ -44,7 +44,7 @@ At the top of the file, import `HouseInfo` from the `house_info` module.
 
 ---
 
-### M3: Task 2: Create a Class
+### M3: Task 2: Create TempeartureData Class
 
 <!-- @pytest.mark.test_temperature_create_class_module3 -->
 
@@ -56,7 +56,7 @@ In the body of the `_convert_area()` method, create a variable called `recs` and
 
 ---
 
-### M3: Task 3: Convert Data
+### M3: Task 3: Convert Temperature Data
 
 <!-- @pytest.mark.test_temperature_convert_loop_module3 -->
 
@@ -70,15 +70,15 @@ Finally, your method should return `recs` (outside of the `for` loop, and the ve
 
 ---
 
-### M3: Task 4: Filter Data Records by Area
+### M3: Task 4: Filter Temperature Data Records by Area
 
 <!-- @pytest.mark.test_temperature_by_area_method_module3 -->
 
 Next, we are going to override `get_data_by_area` method from the parent class.
 
-Create a method called `get_data_by_area()` with two parameters, `self` and `rec_area`. The `rec_area` parameter should have a default value of `0`, which translates to all records. The purpose of this method is to filter the data using `rec_area` as the key which maps to the `"area"` data column.
+Create a method called `get_data_by_area()` with two parameters, `self` and `rec_area`. The `rec_area` parameter should have a default value of `0`, which translates to all records. The purpose of this method is to filter the temperature data by the `"area"` field. In this method `rec_area` maps to the `"area"` data column.
 
-In the body of the `get_data_by_area()` method, create a variable called `recs` and set it to the parent `get_data_by_area` method. Pass `"temperature"` as the first input argument, and `rec_area` input parameter as the second argument. Hint: parent class methods can be call using [super](https://docs.python.org/3/library/functions.html?highlight=super#super).
+In the body of the `get_data_by_area()` method, create a variable called `recs` and set it to the parent `get_data_by_area` method. Pass `"temperature"` as the first argument, and `rec_area` input parameter as the second argument. Hint: parent class methods can be access by using [super](https://docs.python.org/3/library/functions.html?highlight=super#super).
 
 ---
 
@@ -90,17 +90,17 @@ Still in the `get_data_by_area` method, `return` a call to the `_convert_data` p
 
 ---
 
-### M3: Task 6: Filter Data Records by Date
+### M3: Task 6: Filter Temperature Data Records by Date
 
 <!-- @pytest.mark.test_temperature_by_date_method_module3 -->
 
 Similarly, we are going to override `get_data_by_date` method from the parent class.
 
-Still in the `TemperatureData` class, create another method called `get_data_by_date()` with two parameters, `self`, and `rec_date`. The `rec_date` parameter should have a default value to today's day. You can accomplish this using the `date` module. The purpose of this method is to filter the data using `rec_date` as the key which maps to the `"date"` data column.
+Still in the `TemperatureData` class, create another method called `get_data_by_date()` with two parameters, `self`, and `rec_date`. The `rec_date` parameter should have a default value to today's day. You can accomplish this using the `date` module. The purpose of this method is to filter the temperature data by the `"date"` field. In this method, `rec_date` maps to the `"date"` data column.
 
 At the top of the file, import `date` and `datetime` from the `datetime` module. See [date information](https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.date) and [datetime information](https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime)
 
-In the body of the `get_data_by_date()` method, create a variable called `recs` and set it to the parent `get_data_by_date` method. Pass `"temperature"` as the first input argument, and `rec_date` input parameter as the second argument. Hint: parent class methods can be call using [super](https://docs.python.org/3/library/functions.html?highlight=super#super).
+In the body of the `get_data_by_date()` method, create a variable called `recs` and set it to the parent `get_data_by_date` method. Pass `"temperature"` as the first input argument, and `rec_date` input parameter as the second argument. Hint: parent class methods can be accss by using [super](https://docs.python.org/3/library/functions.html?highlight=super#super).
 
 ---
 
@@ -151,9 +151,9 @@ FYI: the app will not validate your `print()` statements.
 
 <!-- @pytest.mark.test_sensor_app_temp_info_by_date_module3 -->
 
-Still in the `sensor_app` file, set the `recs` variable to the return value of `get_data_by_date()` method of the `house_info` object. The method takes `rec_date=test_date` as the only argument.
+Still in the `sensor_app` file, set the `recs` variable to the return value of `get_data_by_date()` method of the `temperature_data` object. The method takes `rec_date=test_date` as the only argument.
 
-Print the `test_date` using the `strftime()` passing `"%m/%d/%y"` as the input parameter, and the length of the `recs` list. Also print the maximum and minimum values in the `recs` list.
+Print the `test_date` using the `strftime()` passing `"%m/%d/%y"` as the first argument, and the length of the `recs` list. Also print the maximum and minimum values in the `recs` list.
 
 ```python
 print("\nHouse Temperature sensor records for area 1 = {}".format(len(recs)))
