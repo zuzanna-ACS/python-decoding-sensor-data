@@ -867,8 +867,8 @@ def test_particle_get_concentration_method_module4(parse):
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case_class(my_class, test_method)  # TODO Remove
-    debug_test_case(my_method)  # TODO Remove
+    # debug_test_case_class(my_class, test_method)  
+    # debug_test_case(my_method)  
     
     my_class_arguments = (
         my_class.def_args_(test_method).match(
@@ -956,7 +956,7 @@ def test_particle_get_concentration_for_module4(parse):
         my_method.exists()
     ), "Are you defining a method called `{}`?".format(test_method)
     
-    debug_test_case(my_method)  # TODO Remove
+    # debug_test_case(my_method)  
     
     # Check for assignment 
     test_code = (
@@ -1012,7 +1012,7 @@ def test_sensor_app_particle_info_by_area_module4(parse):
         "particle_count_info", "ParticleData")
     assert my_file_import, "Are you importing `ParticleData` from `particle_count_info` in `{}`".format(test_file)
 
-    debug_test_case(my_file)   # TODO revove 
+    # debug_test_case(my_file)   
 
     test_code = (
         my_file.assign_().match(

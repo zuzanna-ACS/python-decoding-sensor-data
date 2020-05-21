@@ -54,7 +54,6 @@ print("House Humidity sensor records for date: {} = {}".format(
     test_date.strftime("%m/%d/%y"), len(recs)))
 print("\tAverrage: {} humdity".format(mean(recs)))
 
-# Module 5
 particle_data = ParticleData(data)
 recs = particle_data.get_data_by_area(rec_area=1)
 print("\nHouse Particle sensor records for area 1 = {}".format(len(recs)))
@@ -72,15 +71,15 @@ print("\tGood Air Quality Recs: {}".format(concentrations["good"]))
 print("\tModerate Air Quality Recs: {}".format(concentrations["moderate"]))
 print("\tBad Air Quality Recs: {}".format(concentrations["bad"]))
 
-# Module 6
+# Module 5
 energy_data = EnergyData(data)
 recs = energy_data.get_data_by_area(rec_area=1)
 print("\nHouse Energy sensor records for area 1 = {}".format(len(recs)))
-total_energy = energy_data.calculate_energy_usage(recs)
+total_energy = energy_data.calculate_energy_usage(data=recs)
 print("\tEnergy Usage: {:2.2} Watts".format(total_energy))
 # test_date = datetime.strptime("5/9/20", "%m/%d/%y")
 recs = energy_data.get_data_by_date(rec_date=test_date)
 print("House Energy sensor records for date: {} = {}".format(
     test_date.strftime("%m/%d/%y"), len(recs)))
-total_energy = energy_data.calculate_energy_usage(energy_data.get_data_by_date(rec_date=test_date))
+total_energy = energy_data.calculate_energy_usage(data=recs)
 print("\tEnergy Usage: {:2.2} Watts".format(total_energy))

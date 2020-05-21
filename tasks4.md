@@ -45,7 +45,7 @@ At the top of the file, import `HouseInfo` from the `house_info` module.
 
 Create a child class called `HumidityData` that inherits the properties and methods from the `HouseInfo` class.
 
-Still in the `HumidityData` class, create a private method called `_convert_data()` with two parameters, `self`, and `data`. This method will help us convert the temperature data.
+Still in the `HumidityData` class, create a private method called `_convert_data()` with two parameters, `self`, and `data`. This method will help us convert the humidity data.
 
 In the body of the `_convert_area()` method, create a variable called `recs` and set it to an empty `list`.
 
@@ -93,7 +93,7 @@ Similarly, we are going to override `get_data_by_date` method from the parent cl
 
 At the top of the file, import `date` and `datetime` from the `datetime` module. See [date information](https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.date) and [datetime information](https://docs.python.org/3/library/datetime.html?highlight=datetime#datetime.datetime)
 
-We are going to repeat the process we did for the `TemperatureClass`. In the `HumidityData` class, create another method called `get_data_by_date()` with two parameters, `self`, and `rec_date`. The `rec_date` parameter should have a default value to today's day. You can accomplish this using the `date` module. The purpose of this method is to filter the temperature data by the `"date"` field. In this method, `rec_date` maps to the `"date"` data column.
+We are going to repeat the process we did for the `TemperatureClass`. In the `HumidityData` class, create another method called `get_data_by_date()` with two parameters, `self`, and `rec_date`. The `rec_date` parameter should have a default value to today's day. You can accomplish this using the `date` module. The purpose of this method is to filter the humidity data by the `"date"` field. In this method, `rec_date` maps to the `"date"` data column.
 
 This method should be almost identical to the one you created for the `TemperatureData` class, with the exception of the field input argument. This time, use `"humidity"` as the filter value.
 
@@ -187,7 +187,7 @@ At the top of the file, import `HouseInfo` from the `house_info` module.
 
 Create a child class called `ParticleData` that inherits the properties and methods from the `HouseInfo` class.
 
-Still in the `HumidityData` class, create a private method called `_convert_data()` with two parameters, `self`, and `data`. This method will help us convert the temperature data.
+Still in the `ParticleData` class, create a private method called `_convert_data()` with two parameters, `self`, and `data`. This method will help us convert the particle data.
 
 In the body of the `_convert_area()` method, create a variable called `recs` and set it to an empty `list`.
 

@@ -8,6 +8,12 @@ class EnergyData(HouseInfo):
     ENERGY_PER_BULB = 0.2        # in watts
     ENERGY_BITS = 0x0F0
 
+    def _get_energy(self, rec):
+        rec = int(rec, 16)
+        rec = rec & self.ENERGY_BITS                 # mask ENERGY bits
+        rec = rec >> 4                          # shift right
+        return rec
+    
     def _convert_data(self, data):
         recs = []
         for rec in data:
@@ -15,11 +21,6 @@ class EnergyData(HouseInfo):
             recs.append(self._get_energy(rec))
         return recs
 
-    def _get_energy(self, rec):
-        rec = int(rec, 16)
-        rec = rec & self.ENERGY_BITS                 # mask ENERGY bits
-        rec = rec >> 4                          # shift right
-        return rec
 
     def get_data_by_area(self, rec_area=0):
         recs = super().get_data_by_area("energy_usage", rec_area)
