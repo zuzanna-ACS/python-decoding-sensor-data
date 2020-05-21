@@ -1,6 +1,6 @@
-# Module 1 - The Sensor Class
+# Decoding Data App
 
-- [Module 1 - The Sensor Class](#module-1---the-sensor-class)
+- [Decoding Data App](#decoding-data-app)
   - [Status](#status)
   - [Module 1: Load Sensor Data From Files](#module-1-load-sensor-data-from-files)
     - [Local verification instructions](#local-verification-instructions)
@@ -10,16 +10,6 @@
     - [M1: Task 4: Read Data Files](#m1-task-4-read-data-files)
     - [M1: Task 5: Load Data Records](#m1-task-5-load-data-records)
     - [M1: Task 6: Get Sensor Data with sensor_app](#m1-task-6-get-sensor-data-with-sensorapp)
-  - [Module 2: The HomeData Class](#module-2-the-homedata-class)
-    - [Local Verification Instructions](#local-verification-instructions-1)
-    - [M2: Task 1: Import load_sensor_data](#m2-task-1-import-loadsensordata)
-    - [M2: Task 2: Create a Class](#m2-task-2-create-a-class)
-    - [M2: Task 3:](#m2-task-3)
-    - [M2: Task 4:](#m2-task-4)
-  - [Module 3: Analyze Temperature Data](#module-3-analyze-temperature-data)
-  - [Module 4: Analyze Humidity Data](#module-4-analyze-humidity-data)
-  - [Module 5: Analyze Air Quality Data](#module-5-analyze-air-quality-data)
-  - [Module 6: Analyze Energy Consumption Data](#module-6-analyze-energy-consumption-data)
 
 ## Status
 
@@ -101,14 +91,21 @@ Finally, your function should return `sensor_data` (outside of all `for` loops, 
 
 Let's set up the command line interface (CLI). Open the `sensor_app.py` file in the `sensor` directory of the project.
 
-At the top,  from the `load_data` module, `import` the `load_sensor_data` function.
+At the top of the file, from the `load_data` module, `import` the `load_sensor_data` function.
 
-Define variable called `data` and set it equal to `load_sensor_data()`.
+Then, below the two initial lines of code provided in the file
 
-Print the length of the `data` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form  `str.format()`. Remember, each data file contains 1000 records. So your output should look like this:
+```python
+data = []
+print("Sensor Data App")
+```
 
-```bash
-Loaded records: [2000]
+Set the `data` list to `load_sensor_data()`.
+
+Print the length of the `data` list using the [formatted string](https://docs.python.org/3/library/string.html#formatstrings) form  `str.format()`.
+
+```python
+print("Loaded records: {}".format(len(data)))
 ```
 
 To preview your app, open a terminal at the root of the project and run the following command:
@@ -117,39 +114,15 @@ To preview your app, open a terminal at the root of the project and run the foll
 python sensor/sensor_app.py
 ```
 
-## Module 2: The HomeData Class
+Sample output:
 
-### Local Verification Instructions
+```bash
+Sensor Data App
+Loaded records: 2000
+```
 
-To test this module locally:
+Remember, each data file contains 1000 records.
 
-- Open a terminal at the root of the project
-- Run the command `pytest -k module2`
+FYI: the app will not validate your `print()` statements.
 
-### M2: Task 1: Import load_sensor_data
-
-[//]:# (@pytest.mark.test_house_info_import_module2)
-
-In this module, you will create a `HomeData` class that will help us process the sensor data records.
-
-To start, open the file called `house_info.py` in the `sensor` folder. At the top of the file, import `load_sensor_data` from the `load_info` module.
-
-### M2: Task 2: Create a Class
-
-[//]:# (@pytest.mark.test_house_info_create_class_module2)
-
-Below the import you just wrote, create a class called `HomeData`. Next, create a `HomeData` class constructor that accepts two arguments `self` and `data`.
-
-In the constructor, assign the `data` input parameter to a class attribute with the same name. Hint: class attributes are prefixed with self.
-
-### M2: Task 3:
-
-### M2: Task 4:
-
-## Module 3: Analyze Temperature Data
-
-## Module 4: Analyze Humidity Data
-
-## Module 5: Analyze Air Quality Data
-
-## Module 6: Analyze Energy Consumption Data
+---

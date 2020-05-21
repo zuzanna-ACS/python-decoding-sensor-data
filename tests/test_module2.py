@@ -1,10 +1,19 @@
 import pytest
-import json
+from tests.template import debug_test_case, debug_test_case_class
 
-import sensor.load_data
-import sensor.house_info
+try:
+    from sensor.load_data import load_sensor_data 
+    recs = load_sensor_data()
+except ImportError:
+    recs = 0
+
+try:
+    from sensor.house_info import HouseInfo
+    home_info = HouseInfo(recs)
+except ImportError:
+    home_info = 0
+
 from datetime import date, datetime
-
 
 @pytest.mark.test_house_info_create_class_module2
 def test_house_info_create_class_module2(parse):
@@ -12,21 +21,27 @@ def test_house_info_create_class_module2(parse):
     #     def __init__(self, data):
     #         self.data = data
 
-    house_info = parse("house_info")
-    assert house_info.success, house_info.message
-
-    house_info_class = house_info.class_("HouseInfo")
-    assert (
-        house_info_class.exists()
-    ), "Have you created a class called `HouseInfo` in the `house_info.py` file?"
-
-    class_init = house_info.class_("HouseInfo").method("__init__")
-    assert class_init.exists(), "Are you defining a constructor called `__init__`?"
-    
-    class_init_q = house_info.query("class HouseInfo(): ??")
+    test_file = "house_info"
+    test_class = "HouseInfo"
     test_method = "__init__"
-    class_init_arguments= (
-        class_init_q.def_args_(test_method).match(
+
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+    
+    # my_class = house_info.class_(test_class)
+    my_class = my_file.query("class {}(): ??".format(test_class))
+    assert (
+        my_class.exists()
+    ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
+
+    my_method = my_file.class_(test_class).method(test_method)
+    assert (
+        my_method.exists()
+    ), "Are you defining a constructor called `{}`?".format(test_method)
+    
+    
+    my_class_arguments = (
+        my_class.def_args_(test_method).match(
             {
                 "type": "FunctionDef",
                 "name": "__init__",
@@ -42,49 +57,60 @@ def test_house_info_create_class_module2(parse):
         .exists()
     )
     assert (
-        class_init_arguments
-    ), """Are you defining a constructor for the `HouseInfo` class?
-        Are you declaring the correct name and number of parameters?"""
+        my_class_arguments
+    ), """Are you defining a constructor `{0}` for the `{1}` class?
+        Are you declaring the correct name and number of parameters?""".format(test_method, test_class)
+    
+    # debug_test_case(my_method) 
     
     # Check for assignment 
-    self_data_exists = (
-        class_init_q.def_args_(test_method).match(
+    test_code = (
+        my_method.assign_().match(
             {
-                "body_0_type": "Assign",
-                "body_0_targets_0_type": "Attribute",
-                "body_0_targets_0_value_type": "Name",
-                "body_0_targets_0_value_id": "self",
-                "body_0_targets_0_attr": "data",
-                "body_0_value_type": "Name",
-                "body_0_value_id": "data",
+                "type": "Assign",
+                "targets_0_type": "Attribute",
+                "targets_0_value_type": "Name",
+                "targets_0_value_id": "self",
+                "targets_0_attr": "data",
+                "value_type": "Name",
+                "value_id": "data"
             }
         )
         .exists()
     )
     assert (
-        self_data_exists
-    ), """Are you assigning the correct value to `self.data`?"""
+        test_code
+    ), "Are you creating a class attribute `self.data` and setting it equal to `data`?"
     
     
 @pytest.mark.test_house_info_get_data_by_area_module2
 def test_house_info_get_data_by_area_module2(parse):
     
-    # def get_data_by_area(self, field, area=0):
+    # def get_data_by_area(self, field, rec_area=0):
         # field_data = []
-    house_info = parse("house_info")
-    assert house_info.success, house_info.message
-
-    house_info_class = house_info.class_("HouseInfo")
-    assert (
-        house_info_class.exists()
-    ), "Have you created a class called `HouseInfo` in the `house_info.py` file?"
-
-    data_by_area = house_info.class_("HouseInfo").method("get_data_by_area")
-    assert data_by_area.exists(), "Are you defining a method called `get_data_by_area?"
-
+    
+    test_file = "house_info"
+    test_class = "HouseInfo"
     test_method = "get_data_by_area"
-    data_by_area_arguments= (
-        house_info_class.def_args_(test_method).match(
+
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+    
+    # my_class = house_info.class_(test_class)
+    my_class = my_file.query("class {}(): ??".format(test_class))
+    assert (
+        my_class.exists()
+    ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
+
+    my_method = my_file.class_(test_class).method(test_method)
+    assert (
+        my_method.exists()
+    ), "Are you defining a method called `{}`?".format(test_method)
+    
+    # debug_test_case(my_method) 
+
+    my_class_arguments = (
+        my_class.def_args_(test_method).match(
             {
                 "type": "FunctionDef",
                 "name": test_method,
@@ -96,7 +122,7 @@ def test_house_info_get_data_by_area_module2(parse):
                 "args_args_1_arg": "field",
                 "args_args_1_annotation": "nil",
                 "args_args_2_type": "arg",
-                "args_args_2_arg": "area",
+                "args_args_2_arg": "rec_area",
                 "args_args_2_annotation": "nil",
                 "args_vararg": "nil",
                 "args_kwarg": "nil",
@@ -107,14 +133,13 @@ def test_house_info_get_data_by_area_module2(parse):
         .exists()
     )
     assert (
-        data_by_area_arguments
-    ), """Are you defining a method `get_data_by_area` 
-        with the correct name and number of parameters?
-        Are you setting the third parameter's default value to zero?"""
+        my_class_arguments
+    ), """Are you defining a method `{0}` for the `{1}` class?
+        Are you declaring the correct name and number of parameters?""".format(test_method, test_class)
 
     
-    data_list = (
-        data_by_area.assign_().match(
+    test_code = (
+        my_method.assign_().match(
             {
                 "type": "Assign",
                 "targets_0_type": "Name",
@@ -125,7 +150,7 @@ def test_house_info_get_data_by_area_module2(parse):
         .exists()
     )
     assert (
-        data_list
+        test_code
     ), "Are you creating a variable called `field_data` set equal to an empty list?"
 
 
@@ -133,26 +158,34 @@ def test_house_info_get_data_by_area_module2(parse):
 def test_house_info_get_data_by_area_loop_module2(parse):
     
     #     for record in self.data:
-            # if area == int(record['area']):       # select area
+            # if rec_area == 0:
             #     field_data.append(record[field])
-            # elif area == 0:
+            # elif rec_area == int(record['area']): 
             #     field_data.append(record[field])
     #     return field_data
 
-    house_info = parse("house_info")
-    assert house_info.success, house_info.message
-
-    house_info_class = house_info.class_("HouseInfo")
-    assert (
-        house_info_class.exists()
-    ), "Have you created a class called `HouseInfo` in the `house_info.py` file?"
-
-    data_by_area = house_info.class_("HouseInfo").method("get_data_by_area")
-    assert data_by_area.exists(), "Are you defining a method called `get_data_by_area?"
-
+    test_file = "house_info"
+    test_class = "HouseInfo"
     test_method = "get_data_by_area"
-    first_for = (
-        data_by_area.for_().match(
+
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+    
+    # my_class = house_info.class_(test_class)
+    my_class = my_file.query("class {}(): ??".format(test_class))
+    assert (
+        my_class.exists()
+    ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
+
+    my_method = my_file.class_(test_class).method(test_method)
+    assert (
+        my_method.exists()
+    ), "Are you defining a method called `{}`?".format(test_method)
+    
+    # debug_test_case(my_method) 
+
+    test_code = (
+        my_method.for_().match(
             {
 
                 "target_type": "Name",
@@ -166,14 +199,14 @@ def test_house_info_get_data_by_area_loop_module2(parse):
         .exists()
     )
     assert (
-        first_for
+        test_code
     ), """Do you have a `for` loop, looping through `self.data`? 
         Is the current loop value called `record`?"""
 
 
     # Test filer options:
-    recs = sensor.load_data.load_sensor_data()
-    home_info = sensor.house_info.HouseInfo(recs)
+    # recs = sensor.load_data.load_sensor_data()    # defined at top of file
+    home_info = HouseInfo(recs)
     home_temp = home_info.get_data_by_area("id")
     assert (
         len(home_temp) == 2000
@@ -181,47 +214,62 @@ def test_house_info_get_data_by_area_loop_module2(parse):
         Your function call should have only one argument. For example: `id`
         Check the logic inside your loop"""
 
-    home_temp = home_info.get_data_by_area("id", area=1)
+    home_temp = home_info.get_data_by_area("id", rec_area=1)
     assert (
         len(home_temp) == 1000
     ), """The length of your filter data when calling `get_data_by_area` is incorrect.
-        Your call should have the first argument as `id`, and the second argument as `area=1
+        Your call should have the first argument as `id`, and the second argument as `rec_area=1
         Check the logic inside your loop"""
 
-    home_temp = home_info.get_data_by_area("id", area=2)
+    home_temp = home_info.get_data_by_area("id", rec_area=2)
     assert (
         len(home_temp) == 1000
     ), """The length of your filter data when calling `get_data_by_area` is incorrect.
-        Your call should have the first argument as `id`, and the second argument as `area=2
+        Your call should have the first argument as `id`, and the second argument as `rec_area=2
+        Check the logic inside your loop"""
+    
+    home_temp = home_info.get_data_by_area("id", rec_area=-999)
+    assert (
+        len(home_temp) == 0
+    ), """The length of your filter data when calling `get_data_by_area` is incorrect.
+        Your call should have the first argument as `id`, and the second argument as `rec_area=-999
         Check the logic inside your loop"""
 
 
 @pytest.mark.test_house_info_get_data_by_date_module2
 def test_house_info_get_data_by_date_module2(parse):
 
-    # from datetime import date
+    # from datetime import date, datetime
     # def get_data_by_date(self, field, rec_date=date.today()):
     #     field_data = []
 
-    house_info = parse("house_info")
-    assert house_info.success, house_info.message
-
-    house_info_import = house_info.from_imports(
-        "datetime", "date")
-    assert house_info_import, "Are you importing `date` from datetime?"
-
-    house_info_class = house_info.class_("HouseInfo")
-    assert (
-        house_info_class.exists()
-    ), "Have you created a class called `HouseInfo` in the `house_info.py` file?"
-
-    data_by_date = house_info.class_("HouseInfo").method("get_data_by_date")
-    assert data_by_date.exists(), "Are you defining a method called `get_data_by_date?"
-    
+    test_file = "house_info"
+    test_class = "HouseInfo"
     test_method = "get_data_by_date"
+
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
     
-    data_by_date_arguments= (
-        house_info_class.def_args_(test_method).match(
+    # my_class = house_info.class_(test_class)
+    my_class = my_file.query("class {}(): ??".format(test_class))
+    assert (
+        my_class.exists()
+    ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
+
+    my_method = my_file.class_(test_class).method(test_method)
+    assert (
+        my_method.exists()
+    ), "Are you defining a method called `{}`?".format(test_method)
+    
+    # debug_test_case(my_method) 
+
+    house_info_import = my_file.from_imports(
+        "datetime", "date")
+    assert house_info_import, "Are you importing `date` from `datetime`?"
+
+
+    my_class_arguments = (
+        my_class.def_args_(test_method).match(
             {
                 "type": "FunctionDef",
                 "name": test_method,
@@ -247,16 +295,15 @@ def test_house_info_get_data_by_date_module2(parse):
         .exists()
     )
     assert (
-        data_by_date_arguments
+        my_class_arguments
     ), """Are you defining a method `get_data_by_date` 
         with the correct name and number of parameters?
-        Are you setting the third parameter's default value to date.today()?"""
+        Are you setting the third parameter's default value to `date.today()`?"""
     
-    # print("1)", json.dumps(house_info_class.def_args_(test_method).n, indent=4))  # TODO Remove
-    print("2)", json.dumps(data_by_date.assign_().n, indent=4))  # TODO Remove
-    # assert False
-    data_list = (
-        data_by_date.assign_().match(
+    # debug_test_case(my_method) 
+
+    test_code = (
+        my_method.assign_().match(
             {
                 "type": "Assign",
                 "targets_0_type": "Name",
@@ -267,33 +314,40 @@ def test_house_info_get_data_by_date_module2(parse):
         .exists()
     )
     assert (
-        data_list
+        test_code
     ), "Are you creating a variable called `field_data` set equal to an empty list?"
     
     
-
 @pytest.mark.test_house_info_get_data_by_date_loop_module2
 def test_house_info_get_data_by_date_loop_module2(parse):
         # for record in self.data:
-        #     # filter data by date
-        #     if str(rec_date.strftime("%m/%d/%Y")) == record['date']:       # select area
+        #     if rec_date.strftime("%m/%d/%y") == record['date']: 
         #         field_data.append(record[field])
 
         # return field_data
-    house_info = parse("house_info")
-    assert house_info.success, house_info.message
-
-    house_info_class = house_info.class_("HouseInfo")
-    assert (
-        house_info_class.exists()
-    ), "Have you created a class called `HouseInfo` in the `house_info.py` file?"
-
+    test_file = "house_info"
+    test_class = "HouseInfo"
     test_method = "get_data_by_date"
-    data_by_date = house_info.class_("HouseInfo").method(test_method)
-    assert data_by_date.exists(), "Are you defining a method called `{}?".format(test_method)
 
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+    
+    # my_class = house_info.class_(test_class)
+    my_class = my_file.query("class {}(): ??".format(test_class))
+    assert (
+        my_class.exists()
+    ), "Have you created a class called `{0}` in the `{1}` file?".format(test_class, test_file)
+
+    my_method = my_file.class_(test_class).method(test_method)
+    assert (
+        my_method.exists()
+    ), "Are you defining a method called `{}`?".format(test_method)
+    
+    # debug_test_case(my_method) 
+    
+    # assert False
     first_for = (
-        data_by_date.for_().match(
+        my_method.for_().match(
             {
 
                 "target_type": "Name",
@@ -312,20 +366,17 @@ def test_house_info_get_data_by_date_loop_module2(parse):
         Is the current loop value called `record`?"""
 
     filter_recs = (
-        data_by_date.for_().match(
+        my_method.for_().match(
             {
                 "0_type": "If",
                 "0_test_type": "Compare",
                 "0_test_left_type": "Call",
-                "0_test_left_func_type": "Name",
-                "0_test_left_func_id": "str",
-                "0_test_left_args_0_type": "Call",
-                "0_test_left_args_0_func_type": "Attribute",
-                "0_test_left_args_0_func_value_type": "Name",
-                "0_test_left_args_0_func_value_id": "rec_date",
-                "0_test_left_args_0_func_attr": "strftime",
-                "0_test_left_args_0_args_0_type": "Constant",
-                "0_test_left_args_0_args_0_value": "%m/%d/%y",
+                "0_test_left_func_type": "Attribute",
+                "0_test_left_func_value_type": "Name",
+                "0_test_left_func_value_id": "rec_date",
+                "0_test_left_func_attr": "strftime",
+                "0_test_left_args_0_type": "Constant",
+                "0_test_left_args_0_value": "%m/%d/%y",
                 "0_test_ops_0_type": "Eq",
                 "0_test_comparators_0_type": "Subscript",
                 "0_test_comparators_0_value_type": "Name",
@@ -345,6 +396,7 @@ def test_house_info_get_data_by_date_loop_module2(parse):
                 "0_body_0_value_args_0_slice_type": "Index",
                 "0_body_0_value_args_0_slice_value_type": "Name",
                 "0_body_0_value_args_0_slice_value_id": "field"
+
             }
         )
         .exists()
@@ -352,14 +404,14 @@ def test_house_info_get_data_by_date_loop_module2(parse):
     assert (
         filter_recs
     ), """Are you filtering the data using an `if` statement? 
-        Are you converting the date format of `rec_date` to "%m/%d/%Y" form?
-        Are you casting the `rec_date` as an `str` when comparing with `rec['date']` field?
+        Are you converting the date format of `rec_date` to "%m/%d/%y" form?
+        Are you casting the `rec_date` as string with `strptime()` when comparing with `rec['date']` field?
         Are you appending the filter records to `field_data`?"""
 
 
     # Test filer options:
-    recs = sensor.load_data.load_sensor_data()
-    home_info = sensor.house_info.HouseInfo(recs)
+    # recs = load_sensor_data()    # defined at top of file
+    home_info = HouseInfo(recs)
     home_temp = home_info.get_data_by_date("id")
     assert (
         len(home_temp) == 0
@@ -385,38 +437,28 @@ def test_house_info_get_data_by_date_loop_module2(parse):
             and the second argument as `datetime` object with the format: "%m/%d/%Y"
         Check the logic inside your loop"""
     
-    # print("1)", json.dumps(house_info_class.def_args_(test_method).n, indent=4))  # TODO Remove
-    # print("2)", json.dumps(data_by_date.for_().n, indent=4))  # TODO Remove
-    # assert False
 
-
-@pytest.mark.test_sensor_app_house_info_module2
-def test_sensor_app_load_house_info_module2(parse):
+@pytest.mark.test_sensor_app_house_info_by_area_module2
+def test_sensor_app_house_info_by_area_module2(parse):
     # from house_info import HouseInfo
     # ...
     # house_info = HouseInfo(data)
-    # house_temp = house_info.get_data_by_area("id")
-    # print(f"House sensor records {len(house_temp)}")
+    # recs = house_info.get_data_by_area("id", rec_area=1)
+    # print("House sensor records for area 1 = {}".format(len(recs))) # NOT TEST IT
 
-    sensor = parse("sensor_app")
-    assert sensor.success, sensor.message
-
-    house_info_import = sensor.from_imports(
+    test_file = "sensor_app"
+    
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+    
+    my_file_import = my_file.from_imports(
         "house_info", "HouseInfo")
-    assert house_info_import, "Are you importing `HouseInfo` from house_info?"
+    assert my_file_import, "Are you importing `HouseInfo` from `house_info` in `{}` file".format(test_file)
 
-    datetime_import = sensor.from_imports(
-        "datetime", "datetime")
-    assert datetime_import, "Are you importing `datetime` from datetime?"
-
-    date_import = sensor.from_imports(
-        "datetime", "date")
-    assert date_import, "Are you importing `date` from datetime?"
-    # print(json.dumps(sensor.assign_().n, indent=2))
-    # assert False
-
-    house_area = (
-        sensor.assign_().match(
+    # debug_test_case(my_file)    
+    
+    test_code = (
+        my_file.assign_().match(
             {
                 "2_type": "Assign",
                 "2_targets_0_type": "Name",
@@ -426,6 +468,19 @@ def test_sensor_app_load_house_info_module2(parse):
                 "2_value_func_id": "HouseInfo",
                 "2_value_args_0_type": "Name",
                 "2_value_args_0_id": "data",
+            }
+        )
+        .exists()
+    )
+    assert (
+        test_code
+    ), """Are you creating an instance of the class `HouseInfo` with 
+        `data` list as the initialization argument for the constructor?
+        """
+    
+    test_code = (
+        my_file.assign_().match(
+            {
                 "3_type": "Assign",
                 "3_targets_0_type": "Name",
                 "3_targets_0_id": "recs",
@@ -437,7 +492,7 @@ def test_sensor_app_load_house_info_module2(parse):
                 "3_value_args_0_type": "Constant",
                 "3_value_args_0_value": "id",
                 "3_value_keywords_0_type": "keyword",
-                "3_value_keywords_0_arg": "area",
+                "3_value_keywords_0_arg": "rec_area",
                 "3_value_keywords_0_value_type": "Constant",
                 "3_value_keywords_0_value_value": 1,
             }
@@ -445,29 +500,62 @@ def test_sensor_app_load_house_info_module2(parse):
         .exists()
     )
     assert (
-        house_area
-    ), """Are you creating an instance of the `class` HouseInfo with 
-        `data` list as the initialization argument for the constructor?
-        Are you creating a variable `house_area` and setting it to the return 
-            value from `house_info.get_data_by_area()`?
-        Are you passing `area=1 or 2` as the second argument to the `get_data_by_area()` method?
-        """
+        test_code
+    ), """Are you creating a variable `recs` and setting it to `house_info.get_data_by_area()`?
+          Are you passing `"id"` as the first argument to the method?
+          Are you passing `rec_area=1` as the second argument to the method?"""
+
+
+@pytest.mark.test_sensor_app_house_info_by_date_module2
+def test_sensor_app_house_info_by_date_module2(parse):
+    # from datetime import date, datetime
+    # ...
+    # test_date = datetime.strptime("5/9/20", "%m/%d/%y")
+    # recs = house_info.get_data_by_date("id", rec_date = test_date)
+    # print("House sensor records for {} = {}".format(test_date.date(), len(recs))) # (NOT TEST IT)
+
+    test_file = "sensor_app"
     
-    house_date = (
-        sensor.assign_().match(
+    my_file = parse(test_file)
+    assert my_file.success, my_file.message
+    
+    my_file_import = my_file.from_imports(
+        "datetime", "datetime")
+    assert my_file_import, "Are you importing `datetime` from `datetime` module?"
+
+    my_file_import = my_file.from_imports(
+        "datetime", "date")
+    assert my_file_import, "Are you importing `datetime` from `datetime` module?"
+    
+    # debug_test_case(my_file)    
+    
+    test_code = (
+        my_file.assign_().match(
             {
                 "4_type": "Assign",
                 "4_targets_0_type": "Name",
-                "4_targets_0_id": "rec_date",
+                "4_targets_0_id": "test_date",
                 "4_value_type": "Call",
                 "4_value_func_type": "Attribute",
                 "4_value_func_value_type": "Name",
                 "4_value_func_value_id": "datetime",
                 "4_value_func_attr": "strptime",
                 "4_value_args_0_type": "Constant",
-                "4_value_args_0_value": "5/9/2020",
+                "4_value_args_0_value": "5/9/20",
                 "4_value_args_1_type": "Constant",
-                "4_value_args_1_value": "%m/%d/%Y",
+                "4_value_args_1_value": "%m/%d/%y",
+            }
+        )
+        .exists()
+    )
+    assert (
+        test_code
+    ),  """Are you creating an instance of the `datetime` class called `record_date` 
+            which takes `"5/9/20"` and `"%m/%d/%y"` as the two arguments?"""
+    
+    test_code = (
+        my_file.assign_().match(
+            {
                 "5_type": "Assign",
                 "5_targets_0_type": "Name",
                 "5_targets_0_id": "recs",
@@ -478,19 +566,17 @@ def test_sensor_app_load_house_info_module2(parse):
                 "5_value_func_attr": "get_data_by_date",
                 "5_value_args_0_type": "Constant",
                 "5_value_args_0_value": "id",
-                "5_value_args_1_type": "Name",
-                "5_value_args_1_id": "rec_date"
+                "5_value_keywords_0_type": "keyword",
+                "5_value_keywords_0_arg": "rec_date",
+                "5_value_keywords_0_value_type": "Name",
+                "5_value_keywords_0_value_id": "test_date"
+
             }
         )
         .exists()
     )
     assert (
-        house_date
-    ), """Are you creating an instance of the `class` HouseInfo with 
-        `data` list as the initialization argument for the constructor?
-        Are you creating an instance of the datetime class called `record_date` 
-            which takes "5/9/2020" and "%m/%d/%Y" as the two arguments?
-        Are you creating a variable `house_date` and setting it to the return 
-            value from `house_info.get_data_by_date()`?
-        Are you passing `rec_date` as the second argument to the `get_data_by_date()` method?
-        """
+        test_code
+    ), """Are you creating a variable `recs` and setting it to `house_info.get_data_by_date()`?
+          Are you passing `"id"` as the first argument to the method?
+          Are you passing `rec_date=test_date` as the second argument to the method?"""
