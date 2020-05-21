@@ -13,10 +13,6 @@
     - [M3: Task 7: Return Transformed Temperature Data Records by Date](#m3-task-7-return-transformed-temperature-data-records-by-date)
     - [M3: Task 8: Get Temperature Data by Area with sensor_app](#m3-task-8-get-temperature-data-by-area-with-sensorapp)
     - [M3: Task 8: Get Temperature Data by Date with sensor_app](#m3-task-8-get-temperature-data-by-date-with-sensorapp)
-  - [Module 4: Analyze Humidity and Air Quality Data](#module-4-analyze-humidity-and-air-quality-data)
-    - [M4: Local Verification Instructions](#m4-local-verification-instructions)
-  - [Module 5: Analyze Energy Consumption Data](#module-5-analyze-energy-consumption-data)
-    - [M5: Local Verification Instructions](#m5-local-verification-instructions)
 
 ## Status
 
@@ -38,7 +34,7 @@ To test this module locally:
 
 In this module, you will create a `TemperatureData` class that will process the temperature data fields.
 
-To start, open the file called `temperature.py` in the `sensor` folder.
+To start, open the file called `temperature_info.py` in the `sensor` folder.
 
 At the top of the file, import `HouseInfo` from the `house_info` module.
 
@@ -179,28 +175,3 @@ House Temperature sensor records for date: 05/09/20 = 20
 ```
 
 FYI: the app will not validate your `print()` statements.
-
----
-## Module 4: Analyze Humidity and Air Quality Data
-
-### M4: Local Verification Instructions
-
-To test this module locally:
-
-- Open a terminal at the root of the project
-- Run the command `pytest -k module4`
-
----
----
-
-## Module 5: Analyze Energy Consumption Data
-
-### M5: Local Verification Instructions
-
-To test this module locally:
-
-- Open a terminal at the root of the project
-- Run the command `pytest -k module5`
-
----
----
