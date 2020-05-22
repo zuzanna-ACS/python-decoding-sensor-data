@@ -1,7 +1,7 @@
 # Runner script for all modules
 from load_data import load_sensor_data          # module 2
 from house_info import HouseInfo
-from datetime import date, datetime
+from datetime import datetime, date
 from temperature_info import TemperatureData    # module 3
 from humidity_info import HumidityData          # module 4
 from statistics import mean
@@ -30,7 +30,7 @@ test_date = datetime.strptime("5/9/20", "%m/%d/%y")
 recs = house_info.get_data_by_date("id", rec_date = test_date)
 print("House sensor records for date: {} = {}".format(test_date.strftime("%m/%d/%y"), len(recs)))
  
-# Module 3
+# # Module 3
 temperature_data = TemperatureData(data)
 recs = temperature_data.get_data_by_area(rec_area=1)
 print("\nHouse Temperature sensor records for area 1 = {}".format(len(recs)))
