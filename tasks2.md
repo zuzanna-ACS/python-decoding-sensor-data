@@ -71,6 +71,7 @@ In the body of the `for` loop, select records according to the following control
 - Create an else if statement that is true when `rec_area` is equal to `record['area']` value. In order to compare the `rec_area` integer object to the `record['area']` string object, the later needs to be converted to an integer using the [int() constructor](https://docs.python.org/3/library/functions.html?highlight=int#int).
   - In the body of the `elif`, append to the `record[field]` values to the `field_data` list.
 
+
 Finally, your method should return `field_data` (outside of the `for` loop, and the very end of the method).
 
 ---
@@ -91,11 +92,14 @@ In the body of the `get_data_by_date` method, create a variable called `field_da
 
 <!-- @pytest.mark.test_house_info_get_data_by_date_loop_module2 -->
 
+
 On a new line in the `get_data_by_date` method, create a `for` loop to iterate over `self.data`. Use `record` as your iterator variable.
 
 Note: In this method, the `rec_date` input parameter maps to `'date'` column values.
 
 Now, in the body of the `for` loop, create an `if` statement that's true when the current record's `date` is equal to `rec_date`. In order to compare `record['date']` string object to `rec_date` which is date object, convert `rec_date` to string using the [strftime method](https://docs.python.org/3/library/datetime.html?highlight=strftime#datetime.date.strftime) method. The `strftime()` should take date format `"%m/%d/%y"`, which is the format of your data.
+
+
 
 In the body of the if statement, append to `field_data` the dictionary values whose record key is equal to `field` input parameter.
 
@@ -107,7 +111,9 @@ Finally, your method should return `field_data` (outside of the `for` loop, and 
 
 <!-- @pytest.mark.test_sensor_app_house_info_by_area_module2 -->
 
+
 Open the `sensor_app.py` file in the `sensor` directory. At the top of the file, from the `house_info` module, `import` the `HouseInfo`.
+
 
 At the bottom of the file,  create an instance of the `HouseInfo` class, and assign it to a variable named `house_info`. Pass the `HouseInfo` constructor `data` as its argument.
 
@@ -171,4 +177,3 @@ House sensor records for date: 05/09/20 = 20
 
 FYI: the app will not validate your `print()` statements.
 
----

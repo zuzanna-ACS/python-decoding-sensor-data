@@ -383,6 +383,7 @@ def test_temperature_by_date_method_module3(parse):
         Are you passing `"temperature"` as the first argument to the method call?
         Are you passing `rec_date` as the second argument to the method call?""".format(test_method, parent_class)
 
+
 @pytest.mark.test_temperature_by_date_method_return_module3
 def test_temperature_by_date_method_return_module3(parse):
     # ...
@@ -453,6 +454,7 @@ def test_sensor_app_temp_info_by_area_module3(parse):
         "temperature_info", "TemperatureData")
     assert my_file_import, "Are you importing `{0}` from `temperature_info` in `{}`".format(test_file)
 
+
     # debug_test_case(my_file)    
 
     test_code = (
@@ -474,6 +476,7 @@ def test_sensor_app_temp_info_by_area_module3(parse):
         test_code
     ), """Are you creating an instance of the '{}' class called `temperature_data`?
         Are you passing `data` list as the initialization argument for the constructor?
+
         """.format(test_class)
     
     test_code = (

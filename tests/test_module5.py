@@ -27,7 +27,8 @@ def test_energy_create_class_module5(parse):
     ), """Have you created a class called `{0}`?
         Is your class inheriting the properties of the `{1}` class?""".format(test_class, parent_class)
 
-    debug_test_case_class(my_class, test_method) 
+    # debug_test_case_class(my_class, test_method) 
+
     
     test_code = (
         my_class.assign_().match(
@@ -37,7 +38,7 @@ def test_energy_create_class_module5(parse):
                 "0_targets_0_id": "ENERGY_PER_BULB",
                 "0_value_type": "Constant",
                 "0_value_value": "#<float>",
-                
+
                 "1_type": "Assign",
                 "1_targets_0_type": "Name",
                 "1_targets_0_id": "ENERGY_BITS",
@@ -53,8 +54,8 @@ def test_energy_create_class_module5(parse):
         Did you set it to `0.2` float number?
         Are you declararing a constant `ENERGY_BITS`?
         Did you set it to `0x0F0` hex number?"""
-    
-
+   
+  
 @pytest.mark.test_energy_get_energy_method_module5
 def test_energy_get_energy_method_module5(parse):
     # def _get_energy(self, rec):
@@ -62,6 +63,7 @@ def test_energy_get_energy_method_module5(parse):
     #     rec = rec & ENERGY_BITS                 # mask ENERGY bits
     #     rec = rec >> 4                          # shift right
     #     return rec
+
     test_file = "energy_info"
     parent_class = "HouseInfo"
     test_class = "EnergyData"
