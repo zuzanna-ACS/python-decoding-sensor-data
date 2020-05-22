@@ -14,7 +14,6 @@ class ParticleData(HouseInfo):
         recs = super().get_data_by_area("particulate", rec_area)
         return self._convert_data(recs)
     
-
     def get_data_by_date(self, rec_date=date.today()):
         recs = super().get_data_by_date("particulate", rec_date)
         return self._convert_data(recs)

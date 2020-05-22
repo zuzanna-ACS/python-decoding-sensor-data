@@ -2,7 +2,6 @@ from house_info import HouseInfo
 from datetime import date
 
 
-
 class EnergyData(HouseInfo):
 
     ENERGY_PER_BULB = 0.2        # in watts
@@ -20,7 +19,6 @@ class EnergyData(HouseInfo):
             # Convert string of hex into actual integers based 10
             recs.append(self._get_energy(rec))
         return recs
-
 
     def get_data_by_area(self, rec_area=0):
         recs = super().get_data_by_area("energy_usage", rec_area)
