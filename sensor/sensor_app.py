@@ -1,12 +1,12 @@
 # Runner script for all modules
-from load_data import load_sensor_data          # module 2
-from house_info import HouseInfo
+from load_data import load_sensor_data          # module 1
+from house_info import HouseInfo                # module 2
 from datetime import datetime, date
 from temperature_info import TemperatureData    # module 3
 from humidity_info import HumidityData          # module 4
 from statistics import mean
-from particle_count_info import ParticleData    # module 5
-from energy_info import EnergyData              # module 6    
+from particle_count_info import ParticleData    
+from energy_info import EnergyData              # module 5    
 
 #######################################
 # Do not remove these two lines
