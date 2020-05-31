@@ -161,7 +161,7 @@ def test_humidity_convert_loop_module4(parse):
 
 
 @pytest.mark.test_humidity_by_area_method_module4
-def test_humidity_by_area_and_method_module4(parse):
+def test_humidity_by_area_method_module4(parse):
     # def get_data_by_area(self, rec_area=0):
     #     data = super().get_data_by_area("humidity", rec_area)
     #     return self._convert_data(recs)
